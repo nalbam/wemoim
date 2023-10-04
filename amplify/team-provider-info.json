@@ -16,7 +16,10 @@
         "meetupe9f304bf": {}
       },
       "hosting": {
-        "S3AndCloudFront": {}
+        "amplifyhosting": {
+          "appId": "dll8kh43znruo",
+          "type": "cicd"
+        }
       }
     }
   }
