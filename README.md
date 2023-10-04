@@ -12,7 +12,7 @@ npm install -g @aws-amplify/cli
 amplify init
 amplify status
 
-# amplify pull --appId meetup --envName dev
+# amplify pull --appId d4xxxxxx --envName dev
 
 amplify auth add
 amplify analytics add
