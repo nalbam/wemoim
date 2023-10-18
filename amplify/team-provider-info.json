@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-meetup-dev-13537-unauthRole",
       "StackName": "amplify-meetup-dev-13537",
       "StackId": "arn:aws:cloudformation:ap-northeast-2:968005369378:stack/amplify-meetup-dev-13537/e9fe4240-62d3-11ee-8790-0a9ebafd7240",
-      "AmplifyAppId": "dll8kh43znruo"
+      "AmplifyAppId": "dll8kh43znruo",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-meetup-dev-13537-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -20,6 +21,20 @@
           "appId": "dll8kh43znruo",
           "type": "cicd"
         }
+      },
+      "function": {
+        "events": {
+          "deploymentBucketName": "amplify-meetup-dev-13537-deployment",
+          "s3Key": "amplify-builds/events-7674775a707346643753-build.zip"
+        },
+        "attendees": {
+          "deploymentBucketName": "amplify-meetup-dev-13537-deployment",
+          "s3Key": "amplify-builds/attendees-564b7a5373702b714874-build.zip"
+        }
+      },
+      "api": {
+        "events": {},
+        "attendees": {}
       }
     }
   }
