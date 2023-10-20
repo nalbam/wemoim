@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { useParams } from 'react-router-dom'
 
-import MoimHeader from '../component/MoimHeader';
 import AttendeeCard from '../component/AttendeeCard';
-import QRCode from '../component/QRCode';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -15,14 +13,6 @@ class App extends Component {
 
     return (
       <Fragment>
-        <header className='App-header'>
-          <MoimHeader attendee_id={attendee_id} />
-        </header>
-
-        <footer className='App-footer'>
-          <QRCode attendee_id={attendee_id} />
-        </footer>
-
         <div className='App-body'>
           <AttendeeCard attendee_id={attendee_id} />
         </div>

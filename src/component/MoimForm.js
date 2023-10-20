@@ -15,7 +15,7 @@ class App extends Component {
     id: '',
     id_class: 'text_normal',
     id_ro: false,
-    logo: '',
+    logo: 'https://wemoim.com/images/wemoim.png',
     logo_class: 'text_normal width_80',
     title: '',
     title_class: 'text_normal width_80',
@@ -89,19 +89,9 @@ class App extends Component {
       // this.popup('Saved!');
       this.popupCmp.current.start(3000, 'Saved!');
 
-      if (!this.props.moim_id) {
-        this.setState({
-          id: '',
-          logo: '',
-          title: '',
-          desc: '',
-          questions: '',
-          date_start: '',
-          date_end: '',
-        });
-
+      if (this.props.success) {
         // TODO - redirect to moim page
-        // this.props.history.push(`/manage/moim/${this.state.id}`);
+        this.props.history.push(`/manage/moim/${this.state.id}`);
       }
     } catch (err) {
       console.log(`postMoim: ${JSON.stringify(err, null, 2)}`);
@@ -112,7 +102,7 @@ class App extends Component {
   };
 
   testId(val) {
-    var re = /^([a-z][a-z0-9-_]{4,54})$/g;
+    var re = /^([a-z][a-z0-9-_]{3,32})$/g;
     return re.test(val);
   }
 
@@ -142,7 +132,7 @@ class App extends Component {
   validateId(v) {
     let b = (v !== '' && this.testId(v));
     this.setState({
-      moim_class: this.getClassValue(b),
+      id_class: this.getClassValue(b),
     });
     return b;
   }
@@ -266,6 +256,10 @@ class App extends Component {
 
     return (
       <Fragment>
+        <div className='logo'>
+          <img id='logo' src={this.state.logo} alt='logo' />
+        </div>
+
         <form onSubmit={this.handleSubmit}>
           <div className='lb-submit'>
             <div className='lb-row'>

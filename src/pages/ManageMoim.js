@@ -5,7 +5,6 @@ import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react'
 
 import signUpConfig from '../config/signUpConfig'
 
-import MoimHeader from '../component/MoimHeader';
 import MoimForm from '../component/MoimForm';
 
 function withParams(Component) {
@@ -20,10 +19,6 @@ class App extends Component {
       <Fragment>
         <header className='App-header'>
           <Authenticator usernameAttributes='email' />
-        </header>
-
-        <header className='App-header'>
-          <MoimHeader moim_id={moim_id} />
         </header>
 
         <div className='App-body'>
