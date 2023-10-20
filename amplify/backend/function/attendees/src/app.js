@@ -13,6 +13,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 
+const AWS = require('aws-sdk')
+
+AWS.config.update({ region: process.env.TABLE_REGION });
+
+const dynamodb = new AWS.DynamoDB.DocumentClient();
+
+let tableName = 'wemoim-attendees';
+if (process.env.ENV && process.env.ENV !== 'NONE') {
+  tableName = tableName + '-' + process.env.ENV;
+}
+
 // declare a new express app
 const app = express()
 app.use(bodyParser.json())
