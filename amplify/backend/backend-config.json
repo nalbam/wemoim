@@ -1,28 +1,102 @@
 {
-  "api": {},
-  "auth": {},
-  "function": {},
-  "hosting": {
-    "amplifyhosting": {
-      "lastPushTimeStamp": "2023-10-04T18:37:24.851Z",
-      "service": "amplifyhosting",
-      "type": "cicd"
+  "api": {
+    "attendees": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "attendees"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
+    "moims": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "moims"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "wemoim": {
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "managed"
+    }
+  },
+  "function": {
+    "attendees": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "moims": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_hosting_amplifyhosting_appId": {
+    "AMPLIFY_function_attendees_deploymentBucketName": {
       "usedBy": [
         {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
+          "category": "function",
+          "resourceName": "attendees"
         }
       ]
     },
-    "AMPLIFY_hosting_amplifyhosting_type": {
+    "AMPLIFY_function_attendees_s3Key": {
       "usedBy": [
         {
-          "category": "hosting",
-          "resourceName": "amplifyhosting"
+          "category": "function",
+          "resourceName": "attendees"
+        }
+      ]
+    },
+    "AMPLIFY_function_moims_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "moims"
+        }
+      ]
+    },
+    "AMPLIFY_function_moims_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "moims"
         }
       ]
     }

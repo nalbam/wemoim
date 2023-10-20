@@ -11,7 +11,7 @@
     "env": {
       "Type": "String"
     },
-    "events": {
+    "moims": {
       "Type": "String"
     },
     "attendees": {
@@ -55,7 +55,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -85,7 +85,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -198,7 +198,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -228,7 +228,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -258,7 +258,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -288,7 +288,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -318,7 +318,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -348,7 +348,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -378,7 +378,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
@@ -408,7 +408,7 @@
                       },
                       ":",
                       {
-                        "Ref": "events"
+                        "Ref": "moims"
                       },
                       "/",
                       {
