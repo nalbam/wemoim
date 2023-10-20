@@ -5,7 +5,7 @@ class App extends Component {
     let path1 = `${this.props.pathPrefix}/moim/${this.props.item.moim_id}`;
     let path2;
     if (this.props.pathPrefix === '/manage') {
-      path2 = `${this.props.pathPrefix}/attendees/${this.props.item.moim_id}`;
+      path2 = `${this.props.pathPrefix}/${this.props.item.moim_id}`;
     } else {
       path2 = `${this.props.pathPrefix}/moim/${this.props.item.moim_id}`;
     }

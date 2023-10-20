@@ -100,6 +100,8 @@ app.get(path + hashKeyPath, async function(req, res) {
     KeyConditions: condition
   }
 
+  console.log('get: ' + path + hashKeyPath + ' : ' + JSON.stringify(queryParams, null, 2));
+
   try {
     const data = await ddbDocClient.send(new QueryCommand(queryParams));
     res.json(data.Items);
@@ -148,6 +150,8 @@ app.get(path + '/id' + '/:attendee_id', async function(req, res) {
     Key: params
   }
 
+  console.log('get: ' + path + '/id' + '/:attendee_id' + ' : ' + JSON.stringify(getItemParams, null, 2));
+
   try {
     const data = await ddbDocClient.send(new GetCommand(getItemParams));
     if (data.Item) {
@@ -187,6 +191,8 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
     TableName: tableName,
     Key: params
   }
+
+  console.log('get: ' + path + '/object' + hashKeyPath + sortKeyPath + ' : ' + JSON.stringify(getItemParams, null, 2));
 
   try {
     const data = await ddbDocClient.send(new GetCommand(getItemParams));

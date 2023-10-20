@@ -23,8 +23,6 @@ class App extends Component {
   }
 
   postAttendee = async () => {
-    console.log('postAttendee');
-
     try {
       let body = {
         moim: this.props.moim,
@@ -57,9 +55,9 @@ class App extends Component {
         forceDelete: false,
       });
     } catch (err) {
-      console.log('postAttendee: ' + JSON.stringify(err, null, 2));
+      console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
 
-      this.popupCmp.current.start(2000, err.message);
+      this.popupCmp.current.start(2000, 'Error!');
     }
   };
 

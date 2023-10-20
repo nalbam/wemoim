@@ -73,8 +73,6 @@ class App extends Component {
   };
 
   postMoim = async () => {
-    console.log('postMoim');
-
     try {
       let body = {
         moim_id: this.state.moim_id,

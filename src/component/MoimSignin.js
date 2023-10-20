@@ -47,30 +47,34 @@ class App extends Component {
   };
 
   postSignin = async () => {
-    console.log('postSignin');
+    try {
+      let body = {
+        moim_id: this.props.moim_id,
+        email: this.state.email,
+      };
 
-    let body = {
-      moim_id: this.props.moim_id,
-      email: this.state.email,
-    };
+      console.log(`postSignin: ${JSON.stringify(body, null, 2)}`);
 
-    console.log(`postSignin: ${JSON.stringify(body, null, 2)}`);
+      const res = await API.get('attendees', `/items/object/${this.props.moim_id}/${this.state.email}`);
 
-    const res = await API.get('attendees', `/items/object/${this.props.moim_id}/${this.state.email}`);
+      // console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
 
-    // console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
+      if (res && res.phone && res.phone === this.state.phone) {
+        console.log(`postSignin: mathced ${res.attendee_id}`);
 
-    if (res && res.phone && res.phone === this.state.phone) {
-      console.log(`postSignin: mathced ${res.attendee_id}`);
+        this.popupCmp.current.start(2000, '일치하는 정보가 있습니다.');
 
-      this.popupCmp.current.start(2000, '일치하는 정보가 있습니다.');
+        // TODO - redirect to moim page
+        // this.props.history.push(`/card/${res.attendee_id}`);
+      } else {
+        console.log(`postSignin: not mathced.`);
 
-      // TODO - redirect to moim page
-      // this.props.history.push(`/card/${res.attendee_id}`);
-    } else {
-      console.log(`postSignin: not mathced.`);
+        this.popupCmp.current.start(2000, "일치하는 정보가 없습니다.");
+      }
+    } catch (err) {
+      console.log(`postSignin: ${JSON.stringify(err.message, null, 2)}`);
 
-      this.popupCmp.current.start(2000, "일치하는 정보가 없습니다.");
+      this.popupCmp.current.start(2000, 'Error!');
     }
   };
 
