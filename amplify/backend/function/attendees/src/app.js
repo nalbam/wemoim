@@ -116,49 +116,21 @@ app.get(path + hashKeyPath, async function(req, res) {
  *****************************************/
 
 app.get(path + '/id' + '/:attendee_id', async function(req, res) {
-  const params = {};
-  if (userIdPresent && req.apiGateway) {
-    params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  } else {
-    params[partitionKeyName] = req.params[partitionKeyName];
-    try {
-      params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
-    } catch(err) {
-      res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
-    }
-  }
-  if (hasSortKey) {
-    try {
-      params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
-    } catch(err) {
-      res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
-    }
-  }
-
-  // add attendee_id
-  try {
-    params["attendee_id"] = convertUrlType(req.params["attendee_id"], "S");
-  } catch(err) {
-    res.statusCode = 500;
-    res.json({error: 'Wrong column type ' + err});
-  }
-
-  let getItemParams = {
+  let queryParams = {
     TableName: tableName,
-    Key: params
+    IndexName: 'attendee',
+    KeyConditionExpression: 'attendee_id = :attendee_id',
+    ExpressionAttributeValues: {
+      ':attendee_id': req.params['attendee_id'],
+    },
+    // ConsistentRead: true,
   }
 
-  console.log('get: ' + path + '/id' + '/:attendee_id' + ' : ' + JSON.stringify(getItemParams, null, 2));
+  console.log('get: ' + path + '/id' + '/:attendee_id' + ' : ' + JSON.stringify(queryParams, null, 2));
 
   try {
-    const data = await ddbDocClient.send(new GetCommand(getItemParams));
-    if (data.Item) {
-      res.json(data.Item);
-    } else {
-      res.json(data) ;
-    }
+    const data = await ddbDocClient.send(new QueryCommand(queryParams));
+    res.json(data.Items);
   } catch (err) {
     res.statusCode = 500;
     res.json({error: 'Could not load items: ' + err.message});

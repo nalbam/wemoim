@@ -23,7 +23,7 @@
         },
         "attendees": {
           "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
-          "s3Key": "amplify-builds/attendees-67346745434c2f436436-build.zip"
+          "s3Key": "amplify-builds/attendees-7a4638346b66776f544d-build.zip"
         }
       },
       "api": {

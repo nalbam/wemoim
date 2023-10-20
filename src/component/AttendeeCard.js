@@ -61,7 +61,7 @@ class App extends Component {
 
     const res = await API.get('moims', `/items/object/${this.state.moim_id}`);
 
-    console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
+    // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
     if (res && res.moim_id) {
       this.setState({
