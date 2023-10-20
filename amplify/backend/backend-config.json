@@ -1,74 +1,7 @@
 {
-  "api": {
-    "attendees": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "attendees"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
-    "events": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "events"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
-  "auth": {
-    "meetupe9f304bf": {
-      "customAuth": false,
-      "dependsOn": [],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
-          "passwordPolicyMinLength": 8
-        },
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito"
-    }
-  },
-  "function": {
-    "attendees": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "events": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
+  "api": {},
+  "auth": {},
+  "function": {},
   "hosting": {
     "amplifyhosting": {
       "lastPushTimeStamp": "2023-10-04T18:37:24.851Z",
@@ -77,38 +10,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_attendees_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "attendees"
-        }
-      ]
-    },
-    "AMPLIFY_function_attendees_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "attendees"
-        }
-      ]
-    },
-    "AMPLIFY_function_events_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "events"
-        }
-      ]
-    },
-    "AMPLIFY_function_events_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "events"
-        }
-      ]
-    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {

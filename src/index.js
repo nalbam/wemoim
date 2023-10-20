@@ -7,6 +7,10 @@ import * as serviceWorker from './serviceWorker';
 import AppProvider from './context/AppProvider'
 
 import App from './App';
+import Card from './pages/Card'
+import Moim from './pages/Moim'
+import Manage from './pages/Manage'
+import ManageMoim from './pages/ManageMoim'
 
 import { Amplify } from 'aws-amplify';
 
@@ -28,6 +32,11 @@ const routing = (
     <BrowserRouter>
       <Routes>
         <Route exact path='/' element={<App />} />
+        <Route path='/manage/moim/:moim_id' element={<ManageMoim />} />
+        <Route path='/manage/moim/' element={<ManageMoim />} />
+        <Route path='/manage/' element={<Manage />} />
+        <Route path='/moim/:moim_id' element={<Moim />} />
+        <Route path='/card/:attendee_id' element={<Card />} />
         <Route element={App} />
       </Routes>
     </BrowserRouter>
