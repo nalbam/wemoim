@@ -23,12 +23,12 @@
           "s3Key": "amplify-builds/attendees-56726577454a516a7354-build.zip"
         }
       },
-      "auth": {
-        "wemoim": {}
-      },
       "api": {
         "moims": {},
         "attendees": {}
+      },
+      "auth": {
+        "wemoim9c809f0e": {}
       }
     }
   }

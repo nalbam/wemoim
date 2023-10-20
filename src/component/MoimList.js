@@ -48,7 +48,7 @@ class App extends Component {
           <div className='lb-header lb-rank0'>
             <div>Logo</div>
             <div>Title</div>
-            <div>Code</div>
+            <div>Date</div>
           </div>
           {moimList}
         </div>

@@ -23,9 +23,7 @@ class App extends Component {
   }
 
   logos = [
-    { url: 'https://wemoim.com/images/logo-moim.png' },
-    { url: 'https://wemoim.com/images/logo-community-races.png' },
-    { url: 'https://wemoim.com/images/logo-underground.png' },
+    { url: 'https://wemoim.com/images/wemoim.png' },
   ]
 
   componentDidMount() {

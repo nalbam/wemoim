@@ -4,7 +4,7 @@ import { API } from 'aws-amplify'
 
 class App extends Component {
   state = {
-    logo: '/images/icon-trophy.png',
+    logo: '/images/wemoim.png',
     title: '',
     dateClose: '',
     dateOpen: '',
@@ -16,13 +16,13 @@ class App extends Component {
   }
 
   getMoim = async () => {
-    if (!this.props.moim || this.props.moim === 'undefined') {
+    if (!this.props.moim_id || this.props.moim_id === 'undefined') {
       return;
     }
 
-    console.log(`getMoim ${this.props.moim}`);
+    console.log(`getMoim ${this.props.moim_id}`);
 
-    const res = await API.get('moims', `/items/object/${this.props.moim}`);
+    const res = await API.get('moims', `/items/object/${this.props.moim_id}`);
     if (res && res.moim) {
       this.setState({
         logo: res.logo,
@@ -40,6 +40,7 @@ class App extends Component {
         <div className='logo'>
           <img id='logo' src={this.state.logo} alt='logo' />
         </div>
+
         <h1 id='title' className='title'>
           {this.state.title}
         </h1>

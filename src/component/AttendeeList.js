@@ -2,10 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import { API } from 'aws-amplify'
 
-import Pollen from './Pollen';
-import Popup from './Popup';
 import AttendeeItem from './AttendeeItem';
-import Scroll from './Scroll';
 
 class App extends Component {
   constructor(props) {
@@ -189,12 +186,6 @@ class App extends Component {
           </div>
           {attendeeList}
         </div>
-
-        <Pollen ref={this.pollenCmp} />
-
-        <Popup ref={this.popupCmp} popInfo={this.state.popInfo} />
-
-        <Scroll ref={this.scrollCmp} items={this.state.items.length} />
       </Fragment>
     );
   }

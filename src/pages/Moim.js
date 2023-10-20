@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { useParams } from 'react-router-dom'
 
-import MoimLogo from '../component/MoimLogo';
+import MoimHeader from '../component/MoimHeader';
 import MoimItem from '../component/MoimItem';
 
 function withParams(Component) {
@@ -15,11 +15,11 @@ class App extends Component {
     return (
       <Fragment>
         <header className='App-header'>
-          <MoimLogo moim={moim_id} />
+          <MoimHeader moim_id={moim_id} />
         </header>
 
         <div className='App-body'>
-          <MoimItem moim={moim_id} />
+          <MoimItem moim_id={moim_id} />
         </div>
 
         <footer className='App-footer'></footer>

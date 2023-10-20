@@ -16,7 +16,7 @@ function withParams(Component) {
 
 class App extends Component {
   render() {
-    let { moim } = this.props.params;
+    let { moim_id } = this.props.params;
 
     return (
       <Fragment>
@@ -25,15 +25,15 @@ class App extends Component {
         </header>
 
         <header className='App-header'>
-          <MoimHeader moim={moim} />
+          <MoimHeader moim_id={moim_id} />
         </header>
 
         <div className='App-body'>
-          <MoimForm moim={moim} />
+          <MoimForm moim_id={moim_id} />
         </div>
 
         <footer className='App-footer'>
-          <QRCode moim={moim} />
+          <QRCode moim_id={moim_id} />
         </footer>
       </Fragment>
     );

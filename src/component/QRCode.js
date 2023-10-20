@@ -11,12 +11,12 @@ class App extends Component {
   }
 
   getQR = async () => {
-    if (!this.props.moim || this.props.moim === 'undefined') {
+    if (!this.props.moim_id || this.props.moim_id === 'undefined') {
       return;
     }
 
     this.setState({
-      qr: `https://qr.nalbam.com/qr.png?body=https://wemoim.com/moim/${this.props.moim}`,
+      qr: `https://qr.nalbam.com/qr.png?body=https://wemoim.com/moim/${this.props.moim_id}`,
     });
   };
 
