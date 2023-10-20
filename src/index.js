@@ -12,12 +12,14 @@ import Moim from './pages/Moim'
 import Signin from './pages/Signin'
 import Manage from './pages/Manage'
 import ManageMoim from './pages/ManageMoim'
+import Dashboard from './pages/Dashboard'
 
 import { Amplify } from 'aws-amplify';
 
 import '@aws-amplify/ui-react/styles.css';
 
 import './App.css';
+import './pop.css';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
@@ -33,8 +35,9 @@ const routing = (
     <BrowserRouter>
       <Routes>
         <Route exact path='/' element={<App />} />
-        <Route path='/manage/moim/:moim_id' element={<ManageMoim />} />
         <Route path='/manage/moim/' element={<ManageMoim />} />
+        <Route path='/manage/moim/:moim_id' element={<ManageMoim />} />
+        <Route path='/manage/:moim_id' element={<Dashboard />} />
         <Route path='/manage/' element={<Manage />} />
         <Route path='/moim/:moim_id' element={<Moim />} />
         <Route path='/signin/:moim_id' element={<Signin />} />

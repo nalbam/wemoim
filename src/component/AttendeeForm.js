@@ -64,13 +64,8 @@ class App extends Component {
     }
   };
 
-  validateEmail(val) {
+  testEmail(val) {
     var re = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\].,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(val);
-  }
-
-  validateTime(val) {
-    var re = /^([0-9]{2}:[0-9]{2}\.[0-9]{3})$/;
     return re.test(val);
   }
 
@@ -83,9 +78,9 @@ class App extends Component {
   }
 
   validateAttendeeEmail(v) {
-    let b = (v !== '' && this.validateEmail(v));
+    let b = (v !== '' && this.testEmail(v));
     this.setState({
-      email_class: this.getClassValue(v, 'width_80'),
+      email_class: this.getClassValue(b, 'width_80'),
     });
     return b;
   }

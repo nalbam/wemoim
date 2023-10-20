@@ -5,7 +5,7 @@ import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react'
 
 import signUpConfig from '../config/signUpConfig'
 
-import MoimForm from '../component/MoimForm';
+import AttendeesForm from '../component/AttendeeForm';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <Fragment>
         <div className='App-body'>
-          <MoimForm moim_id={moim_id} />
+          <AttendeesForm moim_id={moim_id} />
         </div>
 
         <footer className='App-footer'></footer>

@@ -12,17 +12,17 @@ class App extends Component {
   }
 
   state = {
-    id: '',
-    id_class: 'text_normal',
-    id_ro: false,
+    moim_id: '',
+    moim_id_class: 'text_normal',
+    moim_id_ro: false,
     logo: 'https://wemoim.com/images/wemoim.png',
     logo_class: 'text_normal width_80',
     title: '',
     title_class: 'text_normal width_80',
     desc: '',
-    desc_class: 'text_normal width_80',
     questions: '',
-    questions_class: 'text_normal width_80',
+    msg_signin: '',
+    msg_card: '',
     date_start: '',
     date_start_class: 'text_normal',
     date_end: '',
@@ -30,7 +30,13 @@ class App extends Component {
   }
 
   logos = [
-    { url: 'https://wemoim.com/images/wemoim.png' },
+    'https://wemoim.com/images/wemoim.png',
+  ]
+
+  regsterd_ids = [
+    "admin",
+    "manage",
+    "moim",
   ]
 
   componentDidMount() {
@@ -48,14 +54,16 @@ class App extends Component {
 
     console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.id) {
+    if (res && res.moim_id) {
       this.setState({
-        id_ro: true,
-        id: res.id,
+        moim_id_ro: true,
+        moim_id: res.moim_id,
         logo: res.logo,
         title: res.title,
         desc: res.desc,
         questions: res.questions,
+        msg_signin: res.msg_signin,
+        msg_card: res.msg_card,
         date_start: res.date_start,
         date_end: res.date_end,
       });
@@ -69,11 +77,13 @@ class App extends Component {
 
     try {
       let body = {
-        id: this.state.id,
+        moim_id: this.state.moim_id,
         logo: this.state.logo,
         title: this.state.title,
         desc: this.state.desc,
         questions: this.state.questions,
+        msg_signin: this.state.msg_signin,
+        msg_card: this.state.msg_card,
         date_start: this.state.date_start,
         date_end: this.state.date_end,
       };
@@ -86,17 +96,14 @@ class App extends Component {
 
       console.log(`postMoim: ${JSON.stringify(res, null, 2)}`);
 
-      // this.popup('Saved!');
       this.popupCmp.current.start(3000, 'Saved!');
 
-      if (this.props.success) {
-        // TODO - redirect to moim page
-        this.props.history.push(`/manage/moim/${this.state.id}`);
-      }
-    } catch (err) {
-      console.log(`postMoim: ${JSON.stringify(err, null, 2)}`);
+      // TODO - redirect to moim page
+      // this.props.history.push(`/manage/moim/${this.state.id}`);
 
-      // this.popup(err.message);
+    } catch (err) {
+      console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
+
       this.popupCmp.current.start(3000, err.message);
     }
   };
@@ -104,6 +111,10 @@ class App extends Component {
   testId(val) {
     var re = /^([a-z][a-z0-9-_]{3,32})$/g;
     return re.test(val);
+  }
+
+  testRegsterdId(val) {
+    return this.regsterd_ids.includes(val);
   }
 
   testUrl(val) {
@@ -130,7 +141,7 @@ class App extends Component {
   }
 
   validateId(v) {
-    let b = (v !== '' && this.testId(v));
+    let b = (v !== '' && this.testId(v) && !this.testRegsterdId(v));
     this.setState({
       id_class: this.getClassValue(b),
     });
@@ -171,7 +182,7 @@ class App extends Component {
 
   validateAll() {
     let b = true;
-    b = b && this.validateId(this.state.id);
+    b = b && this.validateId(this.state.moim_id);
     b = b && this.validateLogo(this.state.logo);
     b = b && this.validateTitle(this.state.title);
     b = b && this.validateDateStart(this.state.date_start);
@@ -182,7 +193,7 @@ class App extends Component {
   validate(k, v) {
     let b = false;
     switch (k) {
-      case 'id':
+      case 'moim_id':
         b = this.validateId(v);
         break;
       case 'logo':
@@ -206,7 +217,7 @@ class App extends Component {
     let v = e.target.value;
 
     switch (e.target.name) {
-      case 'id':
+      case 'moim_id':
         v = v.replace(/[^a-z0-9-_]/g, '');
         break;
       case 'logo':
@@ -251,7 +262,7 @@ class App extends Component {
 
   render() {
     const logoList = this.logos.map(
-      (item, index) => (<img key={index} src={item.url} onClick={this.handleLogo} alt='logo' className='icon-logo' />)
+      (item, index) => (<img key={index} src={item} onClick={this.handleLogo} alt='logo' className='icon-logo' />)
     );
 
     return (
@@ -265,7 +276,7 @@ class App extends Component {
             <div className='lb-row'>
               <div>Id</div>
               <div>
-                <input type='text' name='id' value={this.state.id} onChange={this.handleChange} className={this.state.id_class} readOnly={this.state.id_ro} placeholder='Only lowercase letters and numbers and -_' autoComplete='off' maxLength='64' />
+                <input type='text' name='moim_id' value={this.state.moim_id} onChange={this.handleChange} className={this.state.moim_id_class} readOnly={this.state.moim_id_ro} placeholder='Only lowercase letters and numbers and -_' autoComplete='off' maxLength='64' />
               </div>
             </div>
             <div className='lb-row'>
@@ -284,7 +295,25 @@ class App extends Component {
             <div className='lb-row'>
               <div>설명</div>
               <div>
-                <input type='text' name='desc' value={this.state.desc} onChange={this.handleChange} className={this.state.desc_class} placeholder='' autoComplete='off' maxLength='9000' />
+                <input type='text' name='desc' value={this.state.desc} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
+              </div>
+            </div>
+            <div className='lb-row'>
+              <div>질문</div>
+              <div>
+                <input type='text' name='questions' value={this.state.questions} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
+              </div>
+            </div>
+            <div className='lb-row'>
+              <div>SignIn Msg</div>
+              <div>
+                <input type='text' name='msg_signin' value={this.state.msg_signin} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
+              </div>
+            </div>
+            <div className='lb-row'>
+              <div>Card Msg</div>
+              <div>
+                <input type='text' name='msg_card' value={this.state.msg_card} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
               </div>
             </div>
             <div className='lb-row'>

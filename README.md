@@ -30,3 +30,13 @@ amplify publish
 ```
 </^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|ttf|json|mp3)$)([^.]+$)/>	    /index.html    200
 ```
+
+## dynamodb
+
+* moims
+  * partitionKeyName: moim_id
+
+* attendees
+  * partitionKeyName: moim_id
+  * sortKeyName: email
+  * secondaryIndexes: attendee_id

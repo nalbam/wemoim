@@ -2,7 +2,15 @@ import React, { Component, Fragment } from 'react';
 
 import { API } from 'aws-amplify'
 
+import Popup from './Popup';
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.popupCmp = React.createRef();
+  }
+
   state = {
     logo: '/images/wemoim.png',
     title: '',
@@ -11,7 +19,6 @@ class App extends Component {
     email_class: 'text_normal',
     phone: '',
     phone_class: 'text_normal',
-    desc: '',
   }
 
   componentDidMount() {
@@ -29,11 +36,12 @@ class App extends Component {
 
     console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.id) {
+    if (res && res.moim_id) {
       this.setState({
         logo: res.logo,
         title: res.title,
         desc: res.desc,
+        msg_signin: res.msg_signin,
       });
     }
   };
@@ -42,9 +50,8 @@ class App extends Component {
     console.log('postSignin');
 
     let body = {
-      id: this.props.moim_id,
+      moim_id: this.props.moim_id,
       email: this.state.email,
-      phone: this.state.phone,
     };
 
     console.log(`postSignin: ${JSON.stringify(body, null, 2)}`);
@@ -53,9 +60,11 @@ class App extends Component {
 
     console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.id) {
+    if (res && res.phone) {
       if (res.phone === this.state.phone) {
-        let path = `/card/${res.id}`;
+        console.log(`postSignin: mathced ${res.attendee_id}`);
+
+        let path = `/card/${res.attendee_id}`;
         this.props.history.push(path);
       }
     }
@@ -165,8 +174,10 @@ class App extends Component {
         </form>
 
         <div className='desc'>
-          {this.state.desc}
+          <p>{this.state.msg_signin}</p>
         </div>
+
+        <Popup ref={this.popupCmp} />
       </Fragment>
     );
   }

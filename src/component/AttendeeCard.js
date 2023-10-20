@@ -4,7 +4,7 @@ import { API } from 'aws-amplify'
 
 class App extends Component {
   state = {
-    id: '',
+    attendee_id: '',
     moim_id: '',
     logo: 'https://wemoim.com/images/wemoim.png',
     title: '',
@@ -26,23 +26,26 @@ class App extends Component {
       return;
     }
 
-    console.log(`getAttendee: ${this.props.attendee_id}`);
+    let body = {
+      attendee_id: this.props.attendee_id,
+    };
 
-    const res = await API.get('attendees', `/items/object/${this.props.attendee_id}`);
+    console.log(`getAttendee: ${JSON.stringify(body, null, 2)}`);
+
+    const res = await API.get('attendees', `/items/id/${this.props.attendee_id}`);
 
     console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.id) {
+    if (res && res.length > 0) {
       this.setState({
-        id: res.id,
-        moim_id: res.moim_id,
-        name: res.name,
-        email: res.email,
-        phone: res.phone,
-        answers: res.answers,
-        requests: res.requests,
-        track: res.track,
-        location: res.location,
+        moim_id: res[0].moim_id,
+        name: res[0].name,
+        email: res[0].email,
+        phone: res[0].phone,
+        answers: res[0].answers,
+        requests: res[0].requests,
+        track: res[0].track,
+        location: res[0].location,
       });
     }
 
@@ -60,13 +63,13 @@ class App extends Component {
 
     console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.id) {
+    if (res && res.moim_id) {
       this.setState({
-        id: res.id,
+        moim_id: res.moim_id,
         logo: res.logo,
         title: res.title,
         desc: res.desc,
-        questions: res.questions,
+        msg_card: res.msg_card,
         date_start: res.date_start,
         date_end: res.date_end,
       });
@@ -96,10 +99,8 @@ class App extends Component {
         </div>
 
         <div className='desc'>
-          <p>※ 행사장 빌딩 및 입구에서 행사 스탭에게 보여주시고 입장해주세요.</p>
-          <p>체크인 후, 참가자 기프트 세트를 수령해주세요.</p>
+          <p>{this.state.msg_card}</p>
         </div>
-
       </Fragment>
     );
   }

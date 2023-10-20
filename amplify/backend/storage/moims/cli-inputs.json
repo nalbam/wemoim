@@ -2,17 +2,9 @@
   "resourceName": "moims",
   "tableName": "wemoim-moims",
   "partitionKey": {
-    "fieldName": "id",
+    "fieldName": "moim_id",
     "fieldType": "string"
   },
-  "gsi": [
-    {
-      "name": "date_start",
-      "partitionKey": {
-        "fieldName": "id",
-        "fieldType": "string"
-      }
-    }
-  ],
+  "gsi": [],
   "triggerFunctions": []
 }

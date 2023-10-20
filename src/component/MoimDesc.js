@@ -4,7 +4,7 @@ import { API } from 'aws-amplify'
 
 class App extends Component {
   state = {
-    id: '',
+    moim_id: '',
     logo: 'https://wemoim.com/images/wemoim.png',
     title: '',
     desc: '',
@@ -30,7 +30,7 @@ class App extends Component {
 
     if (res && res.id) {
       this.setState({
-        id: res.id,
+        moim_id: res.moim_id,
         logo: res.logo,
         title: res.title,
         desc: res.desc,

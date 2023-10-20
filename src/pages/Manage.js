@@ -14,7 +14,7 @@ class App extends Component {
           <Authenticator>
             {({ signOut, user }) => (
               <main>
-                <h1>Hello {user.email}</h1>
+                <h1>WeMoim Manage {user.email}</h1>
                 <button onClick={signOut}>Sign out</button>
               </main>
             )}

@@ -2,9 +2,21 @@
   "resourceName": "attendees",
   "tableName": "wemoim-attendees",
   "partitionKey": {
-    "fieldName": "id",
+    "fieldName": "moim_id",
     "fieldType": "string"
   },
-  "gsi": [],
+  "sortKey": {
+    "fieldName": "email",
+    "fieldType": "string"
+  },
+  "gsi": [
+    {
+      "name": "attendee",
+      "partitionKey": {
+        "fieldName": "attendee_id",
+        "fieldType": "string"
+      }
+    }
+  ],
   "triggerFunctions": []
 }
