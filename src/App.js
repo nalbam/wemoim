@@ -6,7 +6,7 @@ class App extends Component {
       <Fragment>
         <header className='App-header'>
           <div className='logo'>
-            <img alt='wemoim' src='/images/cday-logo.png' />
+            <img alt='wemoim' src='/images/wemoim.png' />
           </div>
         </header>
 
