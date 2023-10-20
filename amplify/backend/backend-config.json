@@ -1,19 +1,5 @@
 {
   "api": {
-    "attendees": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "attendees"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "moims": {
       "dependsOn": [
         {
@@ -58,34 +44,27 @@
     }
   },
   "function": {
-    "attendees": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "moims": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "moims"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_attendees_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "attendees"
-        }
-      ]
-    },
-    "AMPLIFY_function_attendees_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "attendees"
-        }
-      ]
-    },
     "AMPLIFY_function_moims_deploymentBucketName": {
       "usedBy": [
         {
@@ -101,6 +80,12 @@
           "resourceName": "moims"
         }
       ]
+    }
+  },
+  "storage": {
+    "moims": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }

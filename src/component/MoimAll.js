@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   getMoims = async () => {
-    const res = await API.get('moims', '/items/all');
+    const res = await API.get('moims', '/items');
     if (res && res.length > 0) {
       this.reloaded(res);
     }
@@ -27,8 +27,8 @@ class App extends Component {
   }
 
   compare(a, b) {
-    let a1 = a.registered;
-    let b1 = b.registered;
+    let a1 = a.date_reg;
+    let b1 = b.date_reg;
     if (a1 < b1) {
       return -1;
     } else if (a1 > b1) {

@@ -9,8 +9,7 @@
         "auth": [
           "create",
           "read",
-          "update",
-          "delete"
+          "update"
         ],
         "guest": [
           "create",

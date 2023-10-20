@@ -13,22 +13,20 @@
       "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-wemoim-dev-184927-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
+      "auth": {
+        "wemoim9c809f0e": {}
+      },
       "function": {
         "moims": {
           "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
-          "s3Key": "amplify-builds/moims-64325974503073587858-build.zip"
-        },
-        "attendees": {
-          "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
-          "s3Key": "amplify-builds/attendees-56726577454a516a7354-build.zip"
+          "s3Key": "amplify-builds/moims-736a2b366f4a66497267-build.zip"
         }
       },
       "api": {
-        "moims": {},
-        "attendees": {}
+        "moims": {}
       },
-      "auth": {
-        "wemoim9c809f0e": {}
+      "storage": {
+        "moims": {}
       }
     }
   }
