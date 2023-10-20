@@ -8,8 +8,6 @@ import signUpConfig from '../config/signUpConfig'
 import MoimHeader from '../component/MoimHeader';
 import MoimForm from '../component/MoimForm';
 
-import QRCode from '../component/QRCode';
-
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
@@ -32,9 +30,7 @@ class App extends Component {
           <MoimForm moim_id={moim_id} />
         </div>
 
-        <footer className='App-footer'>
-          <QRCode moim_id={moim_id} />
-        </footer>
+        <footer className='App-footer'></footer>
       </Fragment>
     );
   }

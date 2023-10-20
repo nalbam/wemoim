@@ -27,8 +27,8 @@ class App extends Component {
   }
 
   compare(a, b) {
-    let a1 = a.date_reg;
-    let b1 = b.date_reg;
+    let a1 = a.date_start;
+    let b1 = b.date_start;
     if (a1 < b1) {
       return -1;
     } else if (a1 > b1) {

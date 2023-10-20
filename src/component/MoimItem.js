@@ -9,7 +9,7 @@ class App extends Component {
         <div className='lb-row'>
           <div><img src={this.props.item.logo} alt='logo' className='icon-logo' /></div>
           <div><a href={path}>{this.props.item.title}</a></div>
-          <div>{this.props.item.date_reg}</div>
+          <div>{this.props.item.date_start}</div>
         </div>
       </Fragment>
     );

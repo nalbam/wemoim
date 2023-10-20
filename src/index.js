@@ -9,6 +9,7 @@ import AppProvider from './context/AppProvider'
 import App from './App';
 import Card from './pages/Card'
 import Moim from './pages/Moim'
+import Signin from './pages/Signin'
 import Manage from './pages/Manage'
 import ManageMoim from './pages/ManageMoim'
 
@@ -36,6 +37,7 @@ const routing = (
         <Route path='/manage/moim/' element={<ManageMoim />} />
         <Route path='/manage/' element={<Manage />} />
         <Route path='/moim/:moim_id' element={<Moim />} />
+        <Route path='/signin/:moim_id' element={<Signin />} />
         <Route path='/card/:attendee_id' element={<Card />} />
         <Route element={App} />
       </Routes>

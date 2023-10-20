@@ -6,9 +6,6 @@ class App extends Component {
   state = {
     logo: '/images/wemoim.png',
     title: '',
-    dateClose: '',
-    dateOpen: '',
-    timeZone: '',
   }
 
   componentDidMount() {
@@ -20,16 +17,16 @@ class App extends Component {
       return;
     }
 
-    console.log(`getMoim ${this.props.moim_id}`);
+    console.log(`getMoim: ${this.props.moim_id}`);
 
     const res = await API.get('moims', `/items/object/${this.props.moim_id}`);
-    if (res && res.moim) {
+
+    console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
+
+    if (res && res.id) {
       this.setState({
         logo: res.logo,
         title: res.title,
-        dateClose: res.dateClose,
-        dateOpen: res.dateOpen,
-        timeZone: res.timeZone,
       });
     }
   };
@@ -40,10 +37,6 @@ class App extends Component {
         <div className='logo'>
           <img id='logo' src={this.state.logo} alt='logo' />
         </div>
-
-        <h1 id='title' className='title'>
-          {this.state.title}
-        </h1>
       </Fragment>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { useParams } from 'react-router-dom'
 
-import MoimHeader from '../component/MoimHeader';
 import MoimSignin from '../component/MoimSignin';
 
 function withParams(Component) {
