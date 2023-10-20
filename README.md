@@ -1,4 +1,4 @@
-# meetup
+# wemoim
 
 ## Install and configure the Amplify CLI.
 
