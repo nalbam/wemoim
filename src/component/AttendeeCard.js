@@ -34,7 +34,7 @@ class App extends Component {
 
     const res = await API.get('attendees', `/items/id/${this.props.attendee_id}`);
 
-    console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
+    // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
     if (res && res.length > 0) {
       this.setState({

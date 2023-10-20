@@ -96,7 +96,7 @@ class App extends Component {
 
       console.log(`postMoim: ${JSON.stringify(res, null, 2)}`);
 
-      this.popupCmp.current.start(3000, 'Saved!');
+      this.popupCmp.current.start(2000, 'Saved!');
 
       // TODO - redirect to moim page
       // this.props.history.push(`/manage/moim/${this.state.id}`);
@@ -104,7 +104,7 @@ class App extends Component {
     } catch (err) {
       console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
 
-      this.popupCmp.current.start(3000, err.message);
+      this.popupCmp.current.start(2000, 'Error!');
     }
   };
 

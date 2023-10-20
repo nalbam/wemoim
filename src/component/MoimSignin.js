@@ -34,7 +34,7 @@ class App extends Component {
 
     const res = await API.get('moims', `/items/object/${this.props.moim_id}`);
 
-    console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
+    // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
     if (res && res.moim_id) {
       this.setState({
@@ -58,15 +58,19 @@ class App extends Component {
 
     const res = await API.get('attendees', `/items/object/${this.props.moim_id}/${this.state.email}`);
 
-    console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
+    // console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.phone) {
-      if (res.phone === this.state.phone) {
-        console.log(`postSignin: mathced ${res.attendee_id}`);
+    if (res && res.phone && res.phone === this.state.phone) {
+      console.log(`postSignin: mathced ${res.attendee_id}`);
 
-        let path = `/card/${res.attendee_id}`;
-        this.props.history.push(path);
-      }
+      this.popupCmp.current.start(2000, '일치하는 정보가 있습니다.');
+
+      // TODO - redirect to moim page
+      // this.props.history.push(`/card/${res.attendee_id}`);
+    } else {
+      console.log(`postSignin: not mathced.`);
+
+      this.popupCmp.current.start(2000, "일치하는 정보가 없습니다.");
     }
   };
 

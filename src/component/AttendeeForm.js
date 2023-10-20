@@ -44,9 +44,9 @@ class App extends Component {
       console.log('postAttendee: ' + JSON.stringify(res, null, 2));
 
       if (this.state.forceDelete) {
-        this.popupCmp.current.start(3000, 'Deleted!');
+        this.popupCmp.current.start(2000, 'Deleted!');
       } else {
-        this.popupCmp.current.start(3000, 'Saved!');
+        this.popupCmp.current.start(2000, 'Saved!');
       }
 
       this.setState({
@@ -59,8 +59,7 @@ class App extends Component {
     } catch (err) {
       console.log('postAttendee: ' + JSON.stringify(err, null, 2));
 
-      // this.popup(err.message);
-      this.popupCmp.current.start(3000, err.message);
+      this.popupCmp.current.start(2000, err.message);
     }
   };
 
