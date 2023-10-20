@@ -41,39 +41,23 @@ class App extends Component {
   postSignin = async () => {
     console.log('postSignin');
 
-    try {
-      let body = {
-        id: this.props.moim_id,
-        email: this.state.email,
-        phone: this.state.phone,
-      };
+    let body = {
+      id: this.props.moim_id,
+      email: this.state.email,
+      phone: this.state.phone,
+    };
 
-      console.log(`postSignin: ${JSON.stringify(body, null, 2)}`);
+    console.log(`postSignin: ${JSON.stringify(body, null, 2)}`);
 
-      const res = await API.post('moims', '/items', {
-        body: body
-      });
+    const res = await API.get('attendees', `/items/object/${this.props.moim_id}/${this.state.email}`);
 
-      console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
+    console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
 
-      // this.popup('Saved!');
-      this.popupCmp.current.start(3000, 'Saved!');
-
-      if (!this.props.moim_id) {
-        this.setState({
-          id: '',
-          email: '',
-          phone: '',
-        });
-
-        // TODO - redirect to moim page
-        // this.props.history.push(`/manage/moim/${this.state.id}`);
+    if (res && res.id) {
+      if (res.phone === this.state.phone) {
+        let path = `/card/${res.id}`;
+        this.props.history.push(path);
       }
-    } catch (err) {
-      console.log(`postSignin: ${JSON.stringify(err, null, 2)}`);
-
-      // this.popup(err.message);
-      this.popupCmp.current.start(3000, err.message);
     }
   };
 
@@ -180,7 +164,7 @@ class App extends Component {
           </div>
         </form>
 
-        <div id='desc' className='desc'>
+        <div className='desc'>
           {this.state.desc}
         </div>
       </Fragment>

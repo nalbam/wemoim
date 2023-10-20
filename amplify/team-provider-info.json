@@ -19,14 +19,20 @@
       "function": {
         "moims": {
           "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
-          "s3Key": "amplify-builds/moims-613275505a7578733936-build.zip"
+          "s3Key": "amplify-builds/moims-736a2b366f4a66497267-build.zip"
+        },
+        "attendees": {
+          "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
+          "s3Key": "amplify-builds/attendees-36777476484d47775a38-build.zip"
         }
       },
       "api": {
-        "moims": {}
+        "moims": {},
+        "attendees": {}
       },
       "storage": {
-        "moims": {}
+        "moims": {},
+        "attendees": {}
       }
     }
   }

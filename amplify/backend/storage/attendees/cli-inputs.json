@@ -1,0 +1,10 @@
+{
+  "resourceName": "attendees",
+  "tableName": "wemoim-attendees",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
