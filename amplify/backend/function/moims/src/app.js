@@ -65,6 +65,7 @@ app.get(path, async function(req, res) {
     Select: 'ALL_ATTRIBUTES',
   };
 
+  console.log(`scan-all: ${JSON.stringify(queryParams)}`);
   try {
     const data = await ddbDocClient.send(new ScanCommand(params));
     res.json(data.Items);
