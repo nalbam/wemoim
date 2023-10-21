@@ -51,7 +51,7 @@ footer {
 }
 
 .qr-reader {
-  width: 600px;
+  width: 100%;
 }
 
 .title {
@@ -147,6 +147,12 @@ footer {
 }
 
 .lb-dash {
+  display: flex;
+  text-align: center;
+  width: 100%;
+}
+
+.lb-reader {
   display: flex;
   text-align: center;
   width: 100%;

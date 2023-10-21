@@ -109,7 +109,7 @@ class App extends Component {
           <img id='logo' src={this.state.logo} alt='logo' />
         </div>
 
-        <div className='lb-items'>
+        <div className='lb-reader'>
           <QrReader
             onResult={(result, error) => {
               if (!!result) {
