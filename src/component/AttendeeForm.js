@@ -83,7 +83,7 @@ class App extends Component {
       return;
     }
 
-    if (res[0].moim_id !== this.state.moim_id) {
+    if (res[0].moim_id !== this.props.moim_id) {
       this.popupCmp.current.start('모임이 일치하지 않습니다.');
       return;
     }
@@ -112,7 +112,9 @@ class App extends Component {
         body: body
       });
 
-      this.popupCmp.current.start('출석!');
+      if (res) {
+        this.popupCmp.current.start('출석!');
+      }
     }
   };
 
@@ -308,13 +310,13 @@ class App extends Component {
               <div className='lb-row'>
                 <div>참석</div>
                 <div>
-                  <div><label><input type='checkbox' name='attendance' value='Y' checked={this.state.attendance} onChange={this.handleCheckBox} className='checkbox' /> </label></div>
+                  <div><label><input type='checkbox' name='attendance' value='Y' checked={this.state.attendance} onChange={this.handleCheckBox} className='checkbox' /></label></div>
                 </div>
               </div>
               <div className='lb-row'>
                 <div>수령</div>
                 <div>
-                  <div><label><input type='checkbox' name='received' value='Y' checked={this.state.received} onChange={this.handleCheckBox} className='checkbox' /> </label></div>
+                  <div><label><input type='checkbox' name='received' value='Y' checked={this.state.received} onChange={this.handleCheckBox} className='checkbox' /></label></div>
                 </div>
               </div>
               <div className='lb-row'>

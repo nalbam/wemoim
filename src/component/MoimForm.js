@@ -145,7 +145,7 @@ class App extends Component {
   validateId(v) {
     let b = (v !== '' && this.testId(v) && !this.testRegsterdId(v));
     this.setState({
-      id_class: this.getClassValue(b),
+      moim_id_class: this.getClassValue(b),
     });
     return b;
   }
@@ -222,9 +222,9 @@ class App extends Component {
       case 'moim_id':
         v = v.replace(/[^a-z0-9-_]/g, '');
         break;
-      case 'logo':
-        document.getElementById('logo').src = v;
-        break;
+      // case 'logo':
+      //   document.getElementById('logo').src = v;
+      //   break;
       // case 'title':
       //   document.getElementById('title').innerText = v;
       //   break;
@@ -243,7 +243,7 @@ class App extends Component {
       logo: e.target.src
     });
 
-    document.getElementById('logo').src = e.target.src;
+    // document.getElementById('logo').src = e.target.src;
   }
 
   handleChangeTZ = (v) => {

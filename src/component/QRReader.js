@@ -5,9 +5,6 @@ import { QrReader } from 'react-qr-reader';
 class App extends Component {
   selectAttendee(attendee_id) {
     console.log(`QrReader: ${attendee_id}`);
-
-    // var parent = this._reactInternalInstance._currentElement._owner._instance;
-    // parent.selectAttendee(attendee_id);
   }
 
   render() {
