@@ -31,6 +31,8 @@ class App extends Component {
     track: '',
     location: '',
     attendance: false,
+    received: false,
+    scaned: false,
   }
 
   componentDidMount() {
@@ -41,8 +43,12 @@ class App extends Component {
     }
   }
 
-  selectAttendee(attendee_id) {
-    this.getAttendee(attendee_id);
+  selectAttendee(attendee_id, scaned) {
+    this.setState({
+      scaned: scaned,
+    });
+
+    this.getAttendee(attendee_id, scaned);
 
     $('html, body').stop().animate({
       scrollTop: 0
@@ -60,36 +66,31 @@ class App extends Component {
       track: '',
       location: '',
       attendance: false,
+      received: false,
+      scaned: false,
     });
   }
 
-  getAttendee = async (attendee_id) => {
-    // if (!this.state.attendee_id || this.state.attendee_id === '') {
-    //   console.log(`selectAttendee: ${this.state.attendee_id}`);
-    //   return;
-    // }
-
-    let body = {
-      attendee_id: attendee_id,
-    };
-
-    console.log(`getAttendee: ${JSON.stringify(body, null, 2)}`);
+  getAttendee = async (attendee_id, scaned) => {
+    console.log(`getAttendee: ${attendee_id}`);
 
     const res = await API.get('attendees', `/items/id/${attendee_id}`);
 
     // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
     if (!res || res.length === 0) {
-      this.popupCmp.current.start(2000, '일치하는 정보가 없습니다.');
+      this.popupCmp.current.start('일치하는 정보가 없습니다.');
       return;
     }
 
     if (res[0].moim_id !== this.state.moim_id) {
-      this.popupCmp.current.start(2000, '모임이 일치하지 않습니다.');
+      this.popupCmp.current.start('모임이 일치하지 않습니다.');
       return;
     }
 
-    this.setState({
+    let attendance = res[0].attendance;
+
+    let body = {
       moim_id: res[0].moim_id,
       attendee_id: res[0].attendee_id,
       name: res[0].name,
@@ -99,8 +100,20 @@ class App extends Component {
       requests: res[0].requests,
       track: res[0].track,
       location: res[0].location,
-      attendance: res[0].attendance,
-    });
+      attendance: scaned || attendance,
+      received: res[0].received,
+    }
+
+    this.setState(body);
+
+    if (scaned && !attendance) {
+      // 자동 출석
+      const res = await API.post('attendees', '/items', {
+        body: body
+      });
+
+      this.popupCmp.current.start('출석!');
+    }
   };
 
   postAttendee = async () => {
@@ -126,6 +139,7 @@ class App extends Component {
         track: this.state.track,
         location: this.state.location,
         attendance: this.state.attendance,
+        received: this.state.received,
       };
 
       console.log('postAttendee: ' + JSON.stringify(body, null, 2));
@@ -136,13 +150,13 @@ class App extends Component {
 
       console.log('postAttendee: ' + JSON.stringify(res, null, 2));
 
-      this.popupCmp.current.start(2000, 'Saved!');
+      this.popupCmp.current.start('Saved!');
 
       // this.resetAttendee();
     } catch (err) {
       console.log(`postAttendee: ${JSON.stringify(err.message, null, 2)}`);
 
-      this.popupCmp.current.start(2000, 'Error!');
+      this.popupCmp.current.start('Error!');
     }
   };
 
@@ -298,6 +312,12 @@ class App extends Component {
                 </div>
               </div>
               <div className='lb-row'>
+                <div>수령</div>
+                <div>
+                  <div><label><input type='checkbox' name='received' value='Y' checked={this.state.received} onChange={this.handleCheckBox} className='checkbox' /> </label></div>
+                </div>
+              </div>
+              <div className='lb-row'>
                 <div></div>
                 <div><button type='submit' className='btn-submit'>Save</button></div>
               </div>
@@ -307,7 +327,7 @@ class App extends Component {
           <QrReader
             onResult={(result, error) => {
               if (!!result) {
-                this.selectAttendee(result?.text);
+                this.selectAttendee(result?.text, true);
               }
               // if (!!error) {
               //   console.info(error);

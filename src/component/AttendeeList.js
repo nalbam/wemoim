@@ -25,11 +25,6 @@ class App extends Component {
     }
   }
 
-  // selectAttendee = (attendee_id) => {
-  //   var parent = this._reactInternalInstance._currentElement._owner._instance;
-  //   parent.selectAttendee(attendee_id);
-  // }
-
   reloaded(res) {
     let items = res.sort(this.compare);
 

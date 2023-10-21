@@ -100,13 +100,13 @@ class App extends Component {
 
       console.log(`postMoim: ${JSON.stringify(res, null, 2)}`);
 
-      this.popupCmp.current.start(2000, 'Saved!');
+      this.popupCmp.current.start('Saved!');
 
       this.props.navigate(`/manage/moim/${this.state.id}`);
     } catch (err) {
       console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
 
-      this.popupCmp.current.start(2000, 'Error!');
+      this.popupCmp.current.start('Error!');
     }
   };
 

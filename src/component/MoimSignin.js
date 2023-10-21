@@ -67,18 +67,18 @@ class App extends Component {
       if (res && res.phone && res.phone === this.state.phone) {
         console.log(`postSignin: mathced ${res.attendee_id}`);
 
-        // this.popupCmp.current.start(2000, res.attendee_id);
+        // this.popupCmp.current.start(res.attendee_id);
 
         this.props.navigate(`/card/${res.attendee_id}`);
       } else {
         console.log(`postSignin: not mathced.`);
 
-        this.popupCmp.current.start(2000, "일치하는 정보가 없습니다.");
+        this.popupCmp.current.start("일치하는 정보가 없습니다.");
       }
     } catch (err) {
       console.log(`postSignin: ${JSON.stringify(err.message, null, 2)}`);
 
-      this.popupCmp.current.start(2000, 'Error!');
+      this.popupCmp.current.start('Error!');
     }
   };
 

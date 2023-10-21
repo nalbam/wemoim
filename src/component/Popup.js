@@ -13,7 +13,7 @@ class App extends Component {
     timeout: 1000,
   }
 
-  start(timeout, message) {
+  start(message, timeout) {
     if (this.props.popInfo) {
       this.setState({
         popInfo: this.props.popInfo,

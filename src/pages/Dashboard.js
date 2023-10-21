@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   selectAttendee = (attendee_id) => {
-    this.formCmp.current.selectAttendee(attendee_id);
+    this.formCmp.current.selectAttendee(attendee_id, false);
   }
 
   render() {
