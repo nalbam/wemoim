@@ -6,10 +6,13 @@ import AttendeeItem from './AttendeeItem';
 
 class App extends Component {
   state = {
+    logo: 'https://wemoim.com/images/wemoim.png',
+    title: '',
     items: [],
   }
 
   componentDidMount() {
+    this.getMoim();
     this.getAttendees();
     this.intervalId = setInterval(this.getAttendees.bind(this), 5000);
   }
@@ -17,6 +20,25 @@ class App extends Component {
   componentWillUnmount() {
     clearInterval(this.intervalId);
   }
+
+  getMoim = async () => {
+    if (!this.props.moim_id || this.props.moim_id === 'undefined') {
+      return;
+    }
+
+    console.log(`getMoim: ${this.props.moim_id}`);
+
+    const res = await API.get('moims', `/items/object/${this.props.moim_id}`);
+
+    // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
+
+    if (res && res.moim_id) {
+      this.setState({
+        logo: res.logo,
+        title: res.title,
+      });
+    }
+  };
 
   getAttendees = async () => {
     const res = await API.get('attendees', `/items/${this.props.moim_id}`);
@@ -52,6 +74,9 @@ class App extends Component {
     return (
       <Fragment>
         <div className='lb-left'>
+          <div className='logo'>
+            <img id='logo' src={this.state.logo} alt='logo' />
+          </div>
           <div className='lb-header'>
             <div></div>
             <div>Name</div>

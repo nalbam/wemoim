@@ -153,6 +153,7 @@ footer {
 }
 
 .lb-left {
+  margin-left: 20px;
   position: block;
   width: 800px;
 }
@@ -200,6 +201,7 @@ footer {
 }
 
 .lb-right {
+  margin-left: 20px;
   position: block;
   width: 600px;
 }
