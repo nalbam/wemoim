@@ -20,7 +20,7 @@ class App extends Component {
     this.formCmp = React.createRef();
   }
 
-  selectAttendee(attendee_id) {
+  selectAttendee = (attendee_id) => {
     this.formCmp.current.selectAttendee(attendee_id);
   }
 
@@ -36,7 +36,7 @@ class App extends Component {
         </header>
 
         <div className='App-left'>
-          <AttendeeList ref={this.listCmp} moim_id={moim_id} />
+          <AttendeeList ref={this.listCmp} moim_id={moim_id} selectAttendee={this.selectAttendee} />
           <AttendeeForm ref={this.formCmp} moim_id={moim_id} attendee_id={attendee_id} />
         </div>
 

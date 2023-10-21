@@ -25,13 +25,13 @@ class App extends Component {
     }
   }
 
-  selectAttendee(attendee_id) {
-    var parent = this._reactInternalInstance._currentElement._owner._instance;
-    parent.selectAttendee(attendee_id);
-  }
+  // selectAttendee = (attendee_id) => {
+  //   var parent = this._reactInternalInstance._currentElement._owner._instance;
+  //   parent.selectAttendee(attendee_id);
+  // }
 
   reloaded(res) {
-    let items = res;
+    let items = res.sort(this.compare);
 
     this.setState({ items: items });
   }
@@ -48,15 +48,17 @@ class App extends Component {
   }
 
   render() {
+    const { selectAttendee } = this.props;
+
     const attendeeList = this.state.items.map(
-      (item, index) => (<AttendeeItem key={index} item={item} />)
+      (item, index) => (<AttendeeItem key={index} item={item} selectAttendee={selectAttendee} />)
     );
 
     return (
       <Fragment>
         <div className='lb-left'>
           <div className='lb-header'>
-            <div>Check</div>
+            <div></div>
             <div>Name</div>
             <div>Email</div>
             <div>Phone</div>
