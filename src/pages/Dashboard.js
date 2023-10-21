@@ -5,6 +5,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react'
 
 import signUpConfig from '../config/signUpConfig'
 
+import MoimHeader from '../component/MoimHeader';
 import AttendeeList from '../component/AttendeeList';
 import AttendeeForm from '../component/AttendeeForm';
 
@@ -30,9 +31,7 @@ class App extends Component {
     return (
       <Fragment>
         <header className='App-header'>
-          <div className='logo'>
-            <img alt='wemoim' src='/images/wemoim.png' />
-          </div>
+          <MoimHeader moim_id={moim_id} />
         </header>
 
         <div className='App-body'>

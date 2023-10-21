@@ -79,20 +79,28 @@ class App extends Component {
 
     // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.length > 0) {
-      this.setState({
-        moim_id: res[0].moim_id,
-        attendee_id: res[0].attendee_id,
-        name: res[0].name,
-        email: res[0].email,
-        phone: res[0].phone,
-        answers: res[0].answers,
-        requests: res[0].requests,
-        track: res[0].track,
-        location: res[0].location,
-        attendance: res[0].attendance,
-      });
+    if (!res || res.length === 0) {
+      this.popupCmp.current.start(2000, '일치하는 정보가 없습니다.');
+      return;
     }
+
+    if (res[0].moim_id !== this.state.moim_id) {
+      this.popupCmp.current.start(2000, '모임이 일치하지 않습니다.');
+      return;
+    }
+
+    this.setState({
+      moim_id: res[0].moim_id,
+      attendee_id: res[0].attendee_id,
+      name: res[0].name,
+      email: res[0].email,
+      phone: res[0].phone,
+      answers: res[0].answers,
+      requests: res[0].requests,
+      track: res[0].track,
+      location: res[0].location,
+      attendance: res[0].attendance,
+    });
   };
 
   postAttendee = async () => {
