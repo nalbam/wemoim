@@ -35,14 +35,6 @@ class App extends Component {
     scaned: false,
   }
 
-  componentDidMount() {
-    if (this.props.moim_id && this.props.moim_id !== 'undefined') {
-      this.setState({
-        moim_id: this.props.moim_id,
-      });
-    }
-  }
-
   selectAttendee(attendee_id, scaned) {
     this.setState({
       scaned: scaned,

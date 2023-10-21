@@ -8,11 +8,12 @@ import AppProvider from './context/AppProvider'
 
 import App from './App';
 import Card from './pages/Card'
-import Moim from './pages/Moim'
-import Signin from './pages/Signin'
+import Dashboard from './pages/Dashboard'
 import Manage from './pages/Manage'
 import ManageMoim from './pages/ManageMoim'
-import Dashboard from './pages/Dashboard'
+import Moim from './pages/Moim'
+import Reader from './pages/Reader'
+import Signin from './pages/Signin'
 
 import { Amplify } from 'aws-amplify';
 
@@ -37,6 +38,7 @@ const routing = (
         <Route exact path='/' element={<App />} />
         <Route path='/manage/moim/' element={<ManageMoim />} />
         <Route path='/manage/moim/:moim_id' element={<ManageMoim />} />
+        <Route path='/manage/reader/:moim_id' element={<Reader />} />
         <Route path='/manage/:moim_id' element={<Dashboard />} />
         <Route path='/manage/' element={<Manage />} />
         <Route path='/moim/:moim_id' element={<Moim />} />
