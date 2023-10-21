@@ -2,6 +2,12 @@ import React, { Component, Fragment } from 'react';
 
 import { API } from 'aws-amplify'
 
+import { v4 as uuidv4 } from 'uuid';
+
+import { QrReader } from 'react-qr-reader';
+
+import $ from 'jquery';
+
 import Popup from './Popup';
 
 class App extends Component {
@@ -12,25 +18,106 @@ class App extends Component {
   }
 
   state = {
-    email_class: 'text_normal width_80',
+    moim_id: '',
+    attendee_id: '',
+    name: '',
+    name_class: 'text_normal',
     email: '',
-    forceUpdate: false,
-    forceDelete: false,
-    laptime_class: 'text_normal',
-    laptime: '',
-    attendeeName_class: 'text_normal width_80',
-    attendeeName: '',
+    email_class: 'text_normal',
+    phone: '',
+    phone_class: 'text_normal',
+    answers: '',
+    requests: '',
+    track: '',
+    location: '',
+    attendance: false,
   }
 
+  componentDidMount() {
+    if (this.props.moim_id && this.props.moim_id !== 'undefined') {
+      this.setState({
+        moim_id: this.props.moim_id,
+      });
+    }
+  }
+
+  selectAttendee(attendee_id) {
+    this.getAttendee(attendee_id);
+
+    $('.lb-right').stop().animate({
+      scrollTop: 0
+    }, 500);
+  }
+
+  resetAttendee() {
+    this.setState({
+      attendee_id: '',
+      name: '',
+      email: '',
+      phone: '',
+      answers: '',
+      requests: '',
+      track: '',
+      location: '',
+      attendance: false,
+    });
+  }
+
+  getAttendee = async (attendee_id) => {
+    // if (!this.state.attendee_id || this.state.attendee_id === '') {
+    //   console.log(`selectAttendee: ${this.state.attendee_id}`);
+    //   return;
+    // }
+
+    let body = {
+      attendee_id: attendee_id,
+    };
+
+    console.log(`getAttendee: ${JSON.stringify(body, null, 2)}`);
+
+    const res = await API.get('attendees', `/items/id/${attendee_id}`);
+
+    // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
+
+    if (res && res.length > 0) {
+      this.setState({
+        moim_id: res[0].moim_id,
+        attendee_id: res[0].attendee_id,
+        name: res[0].name,
+        email: res[0].email,
+        phone: res[0].phone,
+        answers: res[0].answers,
+        requests: res[0].requests,
+        track: res[0].track,
+        location: res[0].location,
+        attendance: res[0].attendance,
+      });
+    }
+  };
+
   postAttendee = async () => {
+    let attendee_id = this.state.attendee_id;
+
+    if (!attendee_id || attendee_id === '') {
+      attendee_id = uuidv4();
+
+      this.setState({
+        attendee_id: attendee_id,
+      });
+    }
+
     try {
       let body = {
-        moim: this.props.moim,
+        moim_id: this.state.moim_id,
+        attendee_id: attendee_id,
+        name: this.state.name,
         email: this.state.email,
-        attendeeName: this.state.attendeeName,
-        laptime: this.state.laptime,
-        forceUpdate: this.state.forceUpdate,
-        forceDelete: this.state.forceDelete,
+        phone: this.state.phone,
+        answers: this.state.answers,
+        requests: this.state.requests,
+        track: this.state.track,
+        location: this.state.location,
+        attendance: this.state.attendance,
       };
 
       console.log('postAttendee: ' + JSON.stringify(body, null, 2));
@@ -41,21 +128,11 @@ class App extends Component {
 
       console.log('postAttendee: ' + JSON.stringify(res, null, 2));
 
-      if (this.state.forceDelete) {
-        this.popupCmp.current.start(2000, 'Deleted!');
-      } else {
-        this.popupCmp.current.start(2000, 'Saved!');
-      }
+      this.popupCmp.current.start(2000, 'Saved!');
 
-      this.setState({
-        email: '',
-        attendeeName: '',
-        laptime: '',
-        forceUpdate: false,
-        forceDelete: false,
-      });
+      // this.resetAttendee();
     } catch (err) {
-      console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
+      console.log(`postAttendee: ${JSON.stringify(err.message, null, 2)}`);
 
       this.popupCmp.current.start(2000, 'Error!');
     }
@@ -63,6 +140,11 @@ class App extends Component {
 
   testEmail(val) {
     var re = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\].,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(val);
+  }
+
+  testPhone(val) {
+    var re = /^([0-9]{3}-[0-9]{4}-[0-9]{4})$/;
     return re.test(val);
   }
 
@@ -74,59 +156,52 @@ class App extends Component {
     }
   }
 
-  validateAttendeeEmail(v) {
-    let b = (v !== '' && this.testEmail(v));
-    this.setState({
-      email_class: this.getClassValue(b, 'width_80'),
-    });
-    return b;
-  }
-
-  validateAttendeeName(v) {
+  validateName(v) {
     let b = (v !== '');
     this.setState({
-      attendeeName_class: this.getClassValue(b, 'width_80'),
+      name_class: this.getClassValue(b),
     });
     return b;
   }
 
-  validateAttendeeTime(v) {
-    let b = (v !== '' && this.validateTime(v));
+  validateEmail(v) {
+    let b = (v !== '' && this.testEmail(v));
     this.setState({
-      laptime_class: this.getClassValue(b),
+      email_class: this.getClassValue(b),
+    });
+    return b;
+  }
+
+  validatePhone(v) {
+    let b = (v !== '' && this.testPhone(v));
+    this.setState({
+      phone_class: this.getClassValue(b),
     });
     return b;
   }
 
   validateAll() {
-    let a = this.validateAttendeeEmail(this.state.email);
-    let b = this.validateAttendeeName(this.state.attendeeName);
-    let c = this.validateAttendeeTime(this.state.laptime);
-    return a && ((b && c) || this.state.forceDelete);
+    let b = true;
+    b = b && this.validateName(this.state.name);
+    b = b && this.validateEmail(this.state.email);
+    b = b && this.validatePhone(this.state.phone);
+    return b;
   }
 
   validate(k, v) {
     let b = false;
-
     switch (k) {
+      case 'name':
+        b = this.validateName(v);
+        break;
       case 'email':
-        b = this.validateAttendeeEmail(v);
+        b = this.validateEmail(v);
         break;
-      case 'attendeeName':
-        b = this.validateAttendeeName(v);
-        break;
-      case 'laptime':
-        b = this.validateAttendeeTime(v);
-        break;
-      case 'forceUpdate':
-        b = true;
-        break;
-      case 'forceDelete':
-        b = true;
+      case 'phone':
+        b = this.validatePhone(v);
         break;
       default:
     }
-
     return b;
   }
 
@@ -158,36 +233,79 @@ class App extends Component {
     return (
       <Fragment>
         <form onSubmit={this.handleSubmit}>
-          <div className='lb-submit'>
-            <div className='lb-row'>
-              <div>Email</div>
-              <div>
-                <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='' autoComplete='off' maxLength='256' />
+          <div className='lb-right'>
+            <div className='lb-submit'>
+              <div className='lb-row'>
+                <div>ID</div>
+                <div>
+                  {this.state.attendee_id}
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>이름</div>
+                <div>
+                  <input type='text' name='name' value={this.state.name} onChange={this.handleChange} className={this.state.name_class} placeholder='' autoComplete='off' maxLength='32' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>이메일</div>
+                <div>
+                  <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='' autoComplete='off' maxLength='256' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>휴대폰</div>
+                <div>
+                  <input type='text' name='phone' value={this.state.phone} onChange={this.handleChange} className={this.state.phone_class} placeholder='010-0000-0000' autoComplete='off' maxLength='13' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>응답</div>
+                <div>
+                  <input type='text' name='answers' value={this.state.answers} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='256' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>요청</div>
+                <div>
+                  <input type='text' name='requests' value={this.state.requests} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='256' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>트랙</div>
+                <div>
+                  <input type='text' name='track' value={this.state.track} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='256' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>장소</div>
+                <div>
+                  <input type='text' name='location' value={this.state.location} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='256' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>참석</div>
+                <div>
+                  <div><label><input type='checkbox' name='attendance' value='Y' checked={this.state.attendance} onChange={this.handleCheckBox} className='checkbox' /> </label></div>
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div></div>
+                <div><button type='submit' className='btn-submit'>Save</button></div>
               </div>
             </div>
-            <div className='lb-row'>
-              <div>Name</div>
-              <div>
-                <input type='text' name='attendeeName' value={this.state.attendeeName} onChange={this.handleChange} className={this.state.attendeeName_class} placeholder='' autoComplete='off' maxLength='32' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>Time</div>
-              <div>
-                <input type='text' name='laptime' value={this.state.laptime} onChange={this.handleChange} className={this.state.laptime_class} placeholder='00:00.000' autoComplete='off' maxLength='9' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div></div>
-              <div>
-                <div><label><input type='checkbox' name='forceUpdate' value='Y' checked={this.state.forceUpdate} onChange={this.handleCheckBox} className='checkbox' /> Force update</label></div>
-                <div><label><input type='checkbox' name='forceDelete' value='Y' checked={this.state.forceDelete} onChange={this.handleCheckBox} className='checkbox' /> Force delete</label></div>
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div></div>
-              <div><button type='submit' className='btn-submit'>Save</button></div>
-            </div>
+
+            <QrReader
+              onResult={(result, error) => {
+                if (!!result) {
+                  this.selectAttendee(result?.text);
+                }
+                // if (!!error) {
+                //   console.info(error);
+                // }
+              }}
+              className='qr-reader'
+            />
           </div>
         </form>
 

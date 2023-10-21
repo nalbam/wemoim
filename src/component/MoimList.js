@@ -45,7 +45,7 @@ class App extends Component {
     return (
       <Fragment>
         <div className='lb-items'>
-          <div className='lb-header lb-rank0'>
+          <div className='lb-header'>
             <div>Logo</div>
             <div>Title</div>
             <div>Date</div>

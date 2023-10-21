@@ -46,6 +46,7 @@ class App extends Component {
         requests: res[0].requests,
         track: res[0].track,
         location: res[0].location,
+        attendance: res[0].attendance,
       });
     }
 

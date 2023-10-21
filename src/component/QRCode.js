@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
 class App extends Component {
-
   state = {
     qr: `https://qr.nalbam.com/qr.png?body=https://wemoim.com/`,
   }

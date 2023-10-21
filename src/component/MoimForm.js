@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 import { API } from 'aws-amplify'
 
 import Popup from './Popup';
+
+function withNavigate(Component) {
+  return props => <Component {...props} navigate={useNavigate()} />;
+}
 
 class App extends Component {
   constructor(props) {
@@ -16,9 +21,9 @@ class App extends Component {
     moim_id_class: 'text_normal',
     moim_id_ro: false,
     logo: 'https://wemoim.com/images/wemoim.png',
-    logo_class: 'text_normal width_80',
+    logo_class: 'text_normal',
     title: '',
-    title_class: 'text_normal width_80',
+    title_class: 'text_normal',
     desc: '',
     questions: '',
     msg_signin: '',
@@ -31,6 +36,7 @@ class App extends Component {
 
   logos = [
     'https://wemoim.com/images/wemoim.png',
+    // 'https://wemoim.com/images/cday-logo.png',
   ]
 
   regsterd_ids = [
@@ -96,9 +102,7 @@ class App extends Component {
 
       this.popupCmp.current.start(2000, 'Saved!');
 
-      // TODO - redirect to moim page
-      // this.props.history.push(`/manage/moim/${this.state.id}`);
-
+      this.props.navigate(`/manage/moim/${this.state.id}`);
     } catch (err) {
       console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
 
@@ -149,7 +153,7 @@ class App extends Component {
   validateLogo(v) {
     let b = (v !== '' && this.testUrl(v));
     this.setState({
-      logo_class: this.getClassValue(b, 'width_80'),
+      logo_class: this.getClassValue(b),
     });
     return b;
   }
@@ -157,7 +161,7 @@ class App extends Component {
   validateTitle(v) {
     let b = (v !== '');
     this.setState({
-      title_class: this.getClassValue(b, 'width_80'),
+      title_class: this.getClassValue(b),
     });
     return b;
   }
@@ -339,4 +343,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withNavigate(App);

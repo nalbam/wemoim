@@ -1,8 +1,13 @@
 import React, { Component, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 import { API } from 'aws-amplify'
 
 import Popup from './Popup';
+
+function withNavigate(Component) {
+  return props => <Component {...props} navigate={useNavigate()} />;
+}
 
 class App extends Component {
   constructor(props) {
@@ -62,10 +67,9 @@ class App extends Component {
       if (res && res.phone && res.phone === this.state.phone) {
         console.log(`postSignin: mathced ${res.attendee_id}`);
 
-        this.popupCmp.current.start(2000, '일치하는 정보가 있습니다.');
+        // this.popupCmp.current.start(2000, res.attendee_id);
 
-        // TODO - redirect to moim page
-        // this.props.history.push(`/card/${res.attendee_id}`);
+        this.props.navigate(`/card/${res.attendee_id}`);
       } else {
         console.log(`postSignin: not mathced.`);
 
@@ -165,13 +169,13 @@ class App extends Component {
             <div className='lb-row'>
               <div>이메일</div>
               <div>
-                <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='' autoComplete='off' maxLength='128' />
+                <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='' autoComplete='off' maxLength='256' />
               </div>
             </div>
             <div className='lb-row'>
               <div>휴대폰</div>
               <div>
-                <input type='text' name='phone' value={this.state.phone} onChange={this.handleChange} className={this.state.phone_class} placeholder='010-0000-0000' autoComplete='off' maxLength='128' />
+                <input type='text' name='phone' value={this.state.phone} onChange={this.handleChange} className={this.state.phone_class} placeholder='010-0000-0000' autoComplete='off' maxLength='13' />
               </div>
             </div>
             <div className='lb-row'>
@@ -191,4 +195,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withNavigate(App);
