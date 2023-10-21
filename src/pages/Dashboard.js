@@ -35,9 +35,11 @@ class App extends Component {
           </div>
         </header>
 
-        <div className='App-left'>
-          <AttendeeList ref={this.listCmp} moim_id={moim_id} selectAttendee={this.selectAttendee} />
-          <AttendeeForm ref={this.formCmp} moim_id={moim_id} attendee_id={attendee_id} />
+        <div className='App-body'>
+          <div className='lb-dash'>
+            <AttendeeList ref={this.listCmp} moim_id={moim_id} selectAttendee={this.selectAttendee} />
+            <AttendeeForm ref={this.formCmp} moim_id={moim_id} attendee_id={attendee_id} />
+          </div>
         </div>
 
         <footer className='App-footer'></footer>

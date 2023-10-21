@@ -146,8 +146,15 @@ footer {
   background: linear-gradient(90deg, #fc7 0, #864);
 }
 
+.lb-dash {
+  display: flex;
+  text-align: center;
+  width: 100%;
+}
+
 .lb-left {
-  max-width: 800px;
+  position: block;
+  width: 800px;
 }
 
 .lb-left .lb-header,
@@ -193,11 +200,7 @@ footer {
 }
 
 .lb-right {
-  height: 500px;
-  left: 850px;
-  overflow: scroll;
-  position: fixed;
-  top: 200px;
+  position: block;
   width: 600px;
 }
 

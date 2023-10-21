@@ -44,7 +44,7 @@ class App extends Component {
   selectAttendee(attendee_id) {
     this.getAttendee(attendee_id);
 
-    $('.lb-right').stop().animate({
+    $('html, body').stop().animate({
       scrollTop: 0
     }, 500);
   }
@@ -232,8 +232,8 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <form onSubmit={this.handleSubmit}>
-          <div className='lb-right'>
+        <div className='lb-right'>
+          <form onSubmit={this.handleSubmit}>
             <div className='lb-submit'>
               <div className='lb-row'>
                 <div>ID</div>
@@ -294,20 +294,20 @@ class App extends Component {
                 <div><button type='submit' className='btn-submit'>Save</button></div>
               </div>
             </div>
+          </form>
 
-            <QrReader
-              onResult={(result, error) => {
-                if (!!result) {
-                  this.selectAttendee(result?.text);
-                }
-                // if (!!error) {
-                //   console.info(error);
-                // }
-              }}
-              className='qr-reader'
-            />
-          </div>
-        </form>
+          <QrReader
+            onResult={(result, error) => {
+              if (!!result) {
+                this.selectAttendee(result?.text);
+              }
+              // if (!!error) {
+              //   console.info(error);
+              // }
+            }}
+            className='qr-reader'
+          />
+        </div>
 
         <Popup ref={this.popupCmp} />
       </Fragment>
