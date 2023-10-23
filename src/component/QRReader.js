@@ -111,15 +111,15 @@ class App extends Component {
     let received = '';
 
     if (this.state.attendance) {
-      attendance = <img src='/images/done.png' alt='done' className='icon-logo' />
+      attendance = <img src='/images/done.png' alt='done' className='icon-check' />
     } else {
-      attendance = <img src='/images/none.png' alt='none' className='icon-logo' />
+      attendance = <img src='/images/none.png' alt='none' className='icon-check' />
     }
 
     if (this.state.received) {
-      received = <img src='/images/done.png' alt='done' className='icon-logo' />
+      received = <img src='/images/done.png' alt='done' className='icon-check' />
     } else {
-      received = <img src='/images/none.png' alt='none' className='icon-logo' />
+      received = <img src='/images/none.png' alt='none' className='icon-check' />
     }
 
     return (

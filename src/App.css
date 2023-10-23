@@ -288,18 +288,23 @@ footer {
   outline: 0;
 }
 
-.icon-trophy {
-  height: 26px;
+.icon-check {
+  margin: 10px;
+  height: 100px;
   position: relative;
-  top: 40%;
-  transform: translateY(-50%);
+}
+
+.icon-trophy {
+  height: 25px;
+  position: relative;
+  transform: translateY(5px);
 }
 
 .icon-logo {
   height: 30px;
   margin-left: 20px;
   position: relative;
-  top: 20%;
+  transform: translateY(5px);
 }
 
 .text_normal {
