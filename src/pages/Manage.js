@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 
 import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react'
 
-import signUpConfig from '../config/signUpConfig'
-
 import MoimList from '../component/MoimList';
 
 class App extends Component {
@@ -35,4 +33,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App, { usernameAttributes: 'email', signUpConfig });
+export default withAuthenticator(App, { hideSignUp: true });

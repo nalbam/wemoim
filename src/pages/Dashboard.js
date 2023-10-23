@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom'
 
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
-import signUpConfig from '../config/signUpConfig'
-
 import AttendeeList from '../component/AttendeeList';
 import AttendeeForm from '../component/AttendeeForm';
 
@@ -42,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(withParams(App), { usernameAttributes: 'email', signUpConfig });
+export default withAuthenticator(withParams(App), { hideSignUp: true });
