@@ -20,7 +20,7 @@ class App extends Component {
     moim_id: '',
     moim_id_class: 'text_normal',
     moim_id_ro: false,
-    logo: '/images/blank.png',
+    logo: 'https://wemoim.com/images/wemoim.png',
     logo_class: 'text_normal',
     title: '',
     title_class: 'text_normal',

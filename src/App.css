@@ -79,6 +79,7 @@ footer {
 .lb-items {
   margin: 0 auto;
   max-width: 1200px;
+  width: auto;
 }
 
 .lb-items .lb-header,
@@ -236,7 +237,7 @@ footer {
 }
 
 .lb-submit .lb-row textarea {
-  height: 60px;
+  height: 100px;
 }
 
 .lb-submit .lb-row input:focus,
