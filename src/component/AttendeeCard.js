@@ -91,7 +91,7 @@ class App extends Component {
         </div>
 
         <div className='name'>
-          <h1 id='name'>{this.state.name} ({this.state.requests})</h1>
+          {this.state.name} ({this.state.requests})
         </div>
 
         <div className='track'>
@@ -100,7 +100,7 @@ class App extends Component {
         </div>
 
         <div className='desc'>
-          <p>{this.state.msg_card}</p>
+          {this.state.msg_card}
         </div>
       </Fragment>
     );

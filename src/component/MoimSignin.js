@@ -165,15 +165,15 @@ class App extends Component {
         </div>
 
         <form onSubmit={this.handleSubmit}>
-          <div className='lb-submit'>
+          <div className='lb-signin'>
             <div className='lb-row'>
-              <div>이메일</div>
+              <div>이메일:</div>
               <div>
-                <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='' autoComplete='off' maxLength='256' />
+                <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='my@email.com' autoComplete='off' maxLength='256' />
               </div>
             </div>
             <div className='lb-row'>
-              <div>휴대폰</div>
+              <div>휴대폰:</div>
               <div>
                 <input type='text' name='phone' value={this.state.phone} onChange={this.handleChange} className={this.state.phone_class} placeholder='010-0000-0000' autoComplete='off' maxLength='13' />
               </div>
@@ -186,7 +186,7 @@ class App extends Component {
         </form>
 
         <div className='desc'>
-          <p>{this.state.msg_signin}</p>
+          {this.state.msg_signin}
         </div>
 
         <Popup ref={this.popupCmp} />

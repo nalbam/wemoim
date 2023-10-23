@@ -102,7 +102,9 @@ class App extends Component {
 
       this.popupCmp.current.start('Saved!');
 
-      this.props.navigate(`/manage/moim/${this.state.id}`);
+      if (!this.props.moim_id || this.props.moim_id === 'undefined') {
+        this.props.navigate(`/manage/moim/${this.state.moim_id}`);
+      }
     } catch (err) {
       console.log(`postMoim: ${JSON.stringify(err.message, null, 2)}`);
 
@@ -273,69 +275,71 @@ class App extends Component {
           <img id='logo' src={this.state.logo} alt='logo' />
         </div>
 
-        <form onSubmit={this.handleSubmit}>
-          <div className='lb-submit'>
-            <div className='lb-row'>
-              <div>Id</div>
-              <div>
-                <input type='text' name='moim_id' value={this.state.moim_id} onChange={this.handleChange} className={this.state.moim_id_class} readOnly={this.state.moim_id_ro} placeholder='Only lowercase letters and numbers and -_' autoComplete='off' maxLength='64' />
+        <div className='lb-center'>
+          <form onSubmit={this.handleSubmit}>
+            <div className='lb-submit'>
+              <div className='lb-row'>
+                <div>Id</div>
+                <div>
+                  <input type='text' name='moim_id' value={this.state.moim_id} onChange={this.handleChange} className={this.state.moim_id_class} readOnly={this.state.moim_id_ro} placeholder='Only lowercase letters and numbers and -_' autoComplete='off' maxLength='64' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>로고</div>
+                <div>
+                  <input type='text' name='logo' value={this.state.logo} onChange={this.handleChange} className={this.state.logo_class} placeholder='Logo uri, including http:// or https://' autoComplete='off' maxLength='256' />
+                  {logoList}
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>주제</div>
+                <div>
+                  <input type='text' name='title' value={this.state.title} onChange={this.handleChange} className={this.state.title_class} placeholder='' autoComplete='off' maxLength='128' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>설명</div>
+                <div>
+                  <textarea name='desc' value={this.state.desc} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='9000'></textarea>
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>질문</div>
+                <div>
+                  <textarea name='questions' value={this.state.questions} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='9000'></textarea>
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>SignIn Msg</div>
+                <div>
+                  <textarea name='msg_signin' value={this.state.msg_signin} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='9000'></textarea>
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>Card Msg</div>
+                <div>
+                  <textarea name='msg_card' value={this.state.msg_card} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='9000'></textarea>
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>시작일</div>
+                <div>
+                  <input type='text' name='date_start' value={this.state.date_start} onChange={this.handleChange} className={this.state.date_start_class} placeholder='2023-01-01' autoComplete='off' maxLength='10' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>종료일</div>
+                <div>
+                  <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='2023-01-01' autoComplete='off' maxLength='10' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div></div>
+                <div><button type='submit' className='btn-submit'>Save</button></div>
               </div>
             </div>
-            <div className='lb-row'>
-              <div>로고</div>
-              <div>
-                <input type='text' name='logo' value={this.state.logo} onChange={this.handleChange} className={this.state.logo_class} placeholder='Logo uri, including http:// or https://' autoComplete='off' maxLength='256' />
-                {logoList}
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>주제</div>
-              <div>
-                <input type='text' name='title' value={this.state.title} onChange={this.handleChange} className={this.state.title_class} placeholder='' autoComplete='off' maxLength='128' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>설명</div>
-              <div>
-                <input type='text' name='desc' value={this.state.desc} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>질문</div>
-              <div>
-                <input type='text' name='questions' value={this.state.questions} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>SignIn Msg</div>
-              <div>
-                <input type='text' name='msg_signin' value={this.state.msg_signin} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>Card Msg</div>
-              <div>
-                <input type='text' name='msg_card' value={this.state.msg_card} onChange={this.handleChange} className='text_normal width_80' placeholder='' autoComplete='off' maxLength='9000' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>시작일</div>
-              <div>
-                <input type='text' name='date_start' value={this.state.date_start} onChange={this.handleChange} className={this.state.date_start_class} placeholder='2023-01-01' autoComplete='off' maxLength='10' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div>종료일</div>
-              <div>
-                <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='2023-01-01' autoComplete='off' maxLength='10' />
-              </div>
-            </div>
-            <div className='lb-row'>
-              <div></div>
-              <div><button type='submit' className='btn-submit'>Save</button></div>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
 
         <Popup ref={this.popupCmp} />
       </Fragment>

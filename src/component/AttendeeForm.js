@@ -245,7 +245,13 @@ class App extends Component {
     this.postAttendee();
   }
 
+  handleReset = (e) => {
+    this.resetAttendee();
+  }
+
   render() {
+    let reader = '/manage/reader/' + this.props.moim_id;
+
     return (
       <Fragment>
         <div className='lb-right'>
@@ -313,7 +319,10 @@ class App extends Component {
               </div>
               <div className='lb-row'>
                 <div></div>
-                <div><button type='submit' className='btn-submit'>Save</button></div>
+                <div>
+                  <button type='submit' className='btn-submit'>Save</button>
+                  <button type='button' className='btn-submit' onClick={this.handleReset}>Reset</button>
+                </div>
               </div>
             </div>
           </form>
@@ -328,7 +337,14 @@ class App extends Component {
               // }
             }}
             className='qr-reader'
+            constraints={{
+              facingMode: 'environment'
+            }}
           />
+
+          <div className='center'>
+            <a href={reader} className='btn-link'>QR Reader</a>
+          </div>
         </div>
 
         <Popup ref={this.popupCmp} />

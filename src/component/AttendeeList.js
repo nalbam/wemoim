@@ -77,6 +77,7 @@ class App extends Component {
           <div className='logo'>
             <img id='logo' src={this.state.logo} alt='logo' />
           </div>
+
           <div className='lb-header'>
             <div></div>
             <div>Name</div>
