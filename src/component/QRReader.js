@@ -120,6 +120,9 @@ class App extends Component {
               // }
             }}
             className='qr-reader'
+            constraints={{
+              facingMode: 'environment'
+            }}
           /></div>
 
         <Popup ref={this.popupCmp} />
