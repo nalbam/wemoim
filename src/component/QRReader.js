@@ -14,13 +14,17 @@ class App extends Component {
   }
 
   state = {
+    attendee_id: '',
     moim_id: '',
-    logo: 'https://wemoim.com/images/wemoim.png',
+    logo: '/images/blank.png',
     title: '',
     desc: '',
     questions: '',
     date_start: '',
     date_end: '',
+    name: '',
+    email: '',
+    phone: '',
   }
 
   componentDidMount() {
@@ -103,6 +107,21 @@ class App extends Component {
   };
 
   render() {
+    let attendance = '';
+    let received = '';
+
+    if (this.state.attendance) {
+      attendance = <img src='/images/done.png' alt='done' className='icon-logo' />
+    } else {
+      attendance = <img src='/images/none.png' alt='none' className='icon-logo' />
+    }
+
+    if (this.state.received) {
+      received = <img src='/images/done.png' alt='done' className='icon-logo' />
+    } else {
+      received = <img src='/images/none.png' alt='none' className='icon-logo' />
+    }
+
     return (
       <Fragment>
         <div className='logo'>
@@ -123,7 +142,21 @@ class App extends Component {
             constraints={{
               facingMode: 'environment'
             }}
-          /></div>
+          />
+        </div>
+
+        <div className='name'>
+          {this.state.name} ({this.state.requests})
+        </div>
+
+        <div className='track'>
+          <p>{this.state.track}</p>
+          <p>{this.state.location}</p>
+        </div>
+
+        <div className='desc'>
+          <p>{attendance} {received}</p>
+        </div>
 
         <Popup ref={this.popupCmp} />
       </Fragment>

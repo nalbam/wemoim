@@ -222,11 +222,14 @@ class App extends Component {
   }
 
   handleChange = (e) => {
+    let k = e.target.name;
+    let v = e.target.value;
+
     this.setState({
-      [e.target.name]: e.target.value
+      [k]: v,
     });
 
-    this.validate(e.target.name, e.target.value);
+    this.validate(k, v);
   }
 
   handleCheckBox = (e) => {

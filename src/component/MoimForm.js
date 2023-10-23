@@ -218,9 +218,10 @@ class App extends Component {
   }
 
   handleChange = (e) => {
+    let k = e.target.name;
     let v = e.target.value;
 
-    switch (e.target.name) {
+    switch (k) {
       case 'moim_id':
         v = v.replace(/[^a-z0-9-_]/g, '');
         break;
@@ -234,18 +235,16 @@ class App extends Component {
     }
 
     this.setState({
-      [e.target.name]: v,
+      [k]: v,
     });
 
-    this.validate(e.target.name, v);
+    this.validate(k, v);
   }
 
   handleLogo = (e) => {
     this.setState({
       logo: e.target.src
     });
-
-    // document.getElementById('logo').src = e.target.src;
   }
 
   handleChangeTZ = (v) => {

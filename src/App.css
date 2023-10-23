@@ -44,7 +44,7 @@ footer {
 }
 
 .qr img {
-  width: 500px;
+  width: 600px;
 }
 
 .qr-reader {
@@ -230,7 +230,7 @@ footer {
 .lb-submit .lb-row textarea {
   border-radius: 3px;
   border: 3px solid #ccc;
-  color: #000;
+  color: #222;
   font-size: 100%;
   line-height: 30px;
   width: 80%;
@@ -278,8 +278,6 @@ footer {
 
 .lb-signin .lb-row input {
   border-radius: 3px;
-  border: 3px solid #ccc;
-  color: #000;
   font-size: 150%;
   height: 100%;
   width: 90%;
@@ -287,7 +285,6 @@ footer {
 
 .lb-signin .lb-row input:focus {
   border: 3px solid #0ac;
-  box-shadow: 0 0 0 1px #0ac;
   outline: 0;
 }
 
@@ -306,13 +303,13 @@ footer {
 }
 
 .text_normal {
-  color: #000;
-  border: 1px solid #aaa;
+  color: #222;
+  border: 3px solid #ccc;
 }
 
 .text_red {
   color: #e55;
-  border: 1px solid #e55;
+  border: 3px solid #e55;
 }
 
 .center {

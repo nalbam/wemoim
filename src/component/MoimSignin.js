@@ -51,32 +51,32 @@ class App extends Component {
     }
   };
 
-  postSignin = async () => {
+  signIn = async () => {
     try {
       let body = {
         moim_id: this.props.moim_id,
         email: this.state.email,
       };
 
-      console.log(`postSignin: ${JSON.stringify(body, null, 2)}`);
+      console.log(`signIn: ${JSON.stringify(body, null, 2)}`);
 
       const res = await API.get('attendees', `/items/object/${this.props.moim_id}/${this.state.email}`);
 
-      // console.log(`postSignin: ${JSON.stringify(res, null, 2)}`);
+      // console.log(`signIn: ${JSON.stringify(res, null, 2)}`);
 
       if (res && res.phone && res.phone === this.state.phone) {
-        console.log(`postSignin: mathced ${res.attendee_id}`);
+        console.log(`signIn: mathced ${res.attendee_id}`);
 
         // this.popupCmp.current.start(res.attendee_id);
 
         this.props.navigate(`/card/${res.attendee_id}`);
       } else {
-        console.log(`postSignin: not mathced.`);
+        console.log(`signIn: not mathced.`);
 
         this.popupCmp.current.start("일치하는 정보가 없습니다.");
       }
     } catch (err) {
-      console.log(`postSignin: ${JSON.stringify(err.message, null, 2)}`);
+      console.log(`signIn: ${JSON.stringify(err.message, null, 2)}`);
 
       this.popupCmp.current.start('Error!');
     }
@@ -138,13 +138,21 @@ class App extends Component {
   }
 
   handleChange = (e) => {
+    let k = e.target.name;
     let v = e.target.value;
 
+    // switch (k) {
+    //   case 'phone':
+    //     v = v.replace(/^([0-9]{3}-[0-9]{4}-[0-9]{4})$/g, '');
+    //     break;
+    //   default:
+    // }
+
     this.setState({
-      [e.target.name]: v,
+      [k]: v,
     });
 
-    this.validate(e.target.name, v);
+    this.validate(k, v);
   }
 
   handleSubmit = (e) => {
@@ -154,7 +162,7 @@ class App extends Component {
       return;
     }
 
-    this.postSignin();
+    this.signIn();
   }
 
   render() {
