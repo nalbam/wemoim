@@ -13,7 +13,7 @@ div {
 }
 
 a {
-  color: #fff;
+  color: orange;
   text-decoration: none;
 }
 
@@ -52,7 +52,7 @@ footer {
 }
 
 .title {
-  font-size: 200%;
+  font-size: 400%;
   margin: 20px;
   text-align: center;
 }
@@ -71,7 +71,8 @@ footer {
 
 .desc {
   font-size: 200%;
-  margin-top: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   text-align: center;
 }
 
@@ -96,6 +97,10 @@ footer {
   background-color: #234;
   font-size: 200%;
   margin-bottom: 5px;
+}
+
+.lb-items .lb-row a {
+  color: #fff;
 }
 
 .lb-items .lb-header>div,
@@ -223,6 +228,7 @@ footer {
 .lb-submit .lb-row input,
 .lb-submit .lb-row textarea {
   border-radius: 3px;
+  border: 3px solid #ccc;
   color: #000;
   font-size: 100%;
   line-height: 30px;
@@ -235,8 +241,7 @@ footer {
 
 .lb-submit .lb-row input:focus,
 .lb-submit .lb-row textarea:focus {
-  border: 1px solid #0ac;
-  box-shadow: 0 0 0 1px #0ac;
+  border: 3px solid #0ac;
   outline: 0;
 }
 
@@ -272,13 +277,14 @@ footer {
 
 .lb-signin .lb-row input {
   border-radius: 3px;
+  border: 3px solid #ccc;
   color: #000;
   font-size: 150%;
   width: 80%;
 }
 
 .lb-signin .lb-row input:focus {
-  border: 1px solid #0ac;
+  border: 3px solid #0ac;
   box-shadow: 0 0 0 1px #0ac;
   outline: 0;
 }
@@ -314,7 +320,6 @@ footer {
 .checkbox {
   border-radius: 3px;
   height: 40px;
-  margin-right: 20px;
   width: 80%;
 }
 

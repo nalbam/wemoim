@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { useParams } from 'react-router-dom'
 
-import MoimSignin from '../component/MoimSignin';
+import MoimDesc from '../component/MoimDesc';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Fragment>
         <div className='App-body'>
-          <MoimSignin moim_id={moim_id} />
+          <MoimDesc moim_id={moim_id} />
         </div>
 
         <footer className='App-footer'></footer>

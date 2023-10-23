@@ -5,7 +5,7 @@ import { API } from 'aws-amplify'
 class App extends Component {
   state = {
     moim_id: '',
-    logo: 'https://wemoim.com/images/wemoim.png',
+    logo: '/images/blank.png',
     title: '',
     desc: '',
   }

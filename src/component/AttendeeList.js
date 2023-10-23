@@ -6,7 +6,7 @@ import AttendeeItem from './AttendeeItem';
 
 class App extends Component {
   state = {
-    logo: 'https://wemoim.com/images/wemoim.png',
+    logo: '/images/blank.png',
     title: '',
     items: [],
   }

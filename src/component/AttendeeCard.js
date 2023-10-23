@@ -6,7 +6,7 @@ class App extends Component {
   state = {
     attendee_id: '',
     moim_id: '',
-    logo: 'https://wemoim.com/images/wemoim.png',
+    logo: '/images/blank.png',
     title: '',
     desc: '',
     questions: '',
@@ -99,9 +99,7 @@ class App extends Component {
           <p>{this.state.location}</p>
         </div>
 
-        <div className='desc'>
-          {this.state.msg_card}
-        </div>
+        <div className='desc' dangerouslySetInnerHTML={{__html: this.state.msg_card}}></div>
       </Fragment>
     );
   }

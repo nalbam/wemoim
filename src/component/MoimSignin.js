@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   state = {
-    logo: '/images/wemoim.png',
+    logo: '/images/blank.png',
     title: '',
     desc: '',
     email: '',
@@ -185,9 +185,7 @@ class App extends Component {
           </div>
         </form>
 
-        <div className='desc'>
-          {this.state.msg_signin}
-        </div>
+        <div className='desc' dangerouslySetInnerHTML={{__html: this.state.msg_signin}}></div>
 
         <Popup ref={this.popupCmp} />
       </Fragment>
