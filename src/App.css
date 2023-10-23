@@ -280,7 +280,8 @@ footer {
   border: 3px solid #ccc;
   color: #000;
   font-size: 150%;
-  width: 80%;
+  height: 100%;
+  width: 90%;
 }
 
 .lb-signin .lb-row input:focus {
@@ -334,6 +335,7 @@ footer {
   padding: 5px;
   text-align: center;
   vertical-align: middle;
+  width: 30%;
 }
 
 .btn-submit {
@@ -347,4 +349,19 @@ footer {
   padding: 5px;
   text-align: center;
   vertical-align: middle;
+  width: 30%;
+}
+
+.btn-signin {
+  background-color: orange;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 130%;
+  margin-right: 20px;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  width: 50%;
 }

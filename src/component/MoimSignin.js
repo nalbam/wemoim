@@ -180,7 +180,7 @@ class App extends Component {
             </div>
             <div className='lb-row'>
               <div></div>
-              <div><button type='submit' className='btn-submit'>등록정보 찾기</button></div>
+              <div><button type='submit' className='btn-signin'>등록정보 찾기</button></div>
             </div>
           </div>
         </form>

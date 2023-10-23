@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { useParams } from 'react-router-dom'
 
-import MoimDesc from '../component/MoimDesc';
+import MoimDesc from '../component/MoimSignin';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
