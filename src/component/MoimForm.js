@@ -323,13 +323,13 @@ class App extends Component {
               <div className='lb-row'>
                 <div>시작일</div>
                 <div>
-                  <input type='text' name='date_start' value={this.state.date_start} onChange={this.handleChange} className={this.state.date_start_class} placeholder='2023-01-01' autoComplete='off' maxLength='10' />
+                  <input type='text' name='date_start' value={this.state.date_start} onChange={this.handleChange} className={this.state.date_start_class} placeholder='0000-00-00' autoComplete='off' maxLength='10' />
                 </div>
               </div>
               <div className='lb-row'>
                 <div>종료일</div>
                 <div>
-                  <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='2023-01-01' autoComplete='off' maxLength='10' />
+                  <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='0000-00-00' autoComplete='off' maxLength='10' />
                 </div>
               </div>
               <div className='lb-row'>

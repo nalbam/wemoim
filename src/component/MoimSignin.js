@@ -137,16 +137,27 @@ class App extends Component {
     return b;
   }
 
+  normalizePhone(v) {
+    if (!v) return v;
+    let cv = v.replace(/[^\d]/g, '');
+
+    if (cv.length + 1 === v.length && v[v.length - 1] === '-') return v;
+    if (cv.length < 4) return cv;
+    if (cv.length + 2 === v.length && v[v.length - 1] === '-') return v;
+    if (cv.length < 8) return `${cv.slice(0, 3)}-${cv.slice(3)}`;
+    return `${cv.slice(0, 3)}-${cv.slice(3, 7)}-${cv.slice(7, 11)}`;
+  }
+
   handleChange = (e) => {
     let k = e.target.name;
     let v = e.target.value;
 
-    // switch (k) {
-    //   case 'phone':
-    //     v = v.replace(/^([0-9]{3}-[0-9]{4}-[0-9]{4})$/g, '');
-    //     break;
-    //   default:
-    // }
+    switch (k) {
+      case 'phone':
+        v = this.normalizePhone(v);
+        break;
+      default:
+    }
 
     this.setState({
       [k]: v,
@@ -193,7 +204,7 @@ class App extends Component {
           </div>
         </form>
 
-        <div className='desc' dangerouslySetInnerHTML={{__html: this.state.msg_signin}}></div>
+        <div className='desc' dangerouslySetInnerHTML={{ __html: this.state.msg_signin }}></div>
 
         <Popup ref={this.popupCmp} />
       </Fragment>
