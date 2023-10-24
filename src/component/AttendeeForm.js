@@ -275,7 +275,7 @@ class App extends Component {
               <div className='lb-row'>
                 <div>이메일</div>
                 <div>
-                  <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='' autoComplete='off' maxLength='256' />
+                  <input type='text' name='email' value={this.state.email} onChange={this.handleChange} className={this.state.email_class} placeholder='my@email.com' autoComplete='off' maxLength='256' />
                 </div>
               </div>
               <div className='lb-row'>

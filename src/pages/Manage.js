@@ -11,10 +11,10 @@ class App extends Component {
         <header className='App-header'>
           <Authenticator>
             {({ signOut, user }) => (
-              <main>
+              <div className='center'>
                 <h1>WeMoim Manage {user.email}</h1>
                 <button onClick={signOut}>Sign out</button>
-              </main>
+              </div>
             )}
           </Authenticator>
         </header>
@@ -28,7 +28,7 @@ class App extends Component {
         </div>
 
         <footer className='App-footer'></footer>
-      </Fragment>
+      </Fragment >
     );
   }
 }

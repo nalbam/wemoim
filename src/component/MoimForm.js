@@ -58,7 +58,7 @@ class App extends Component {
 
     const res = await API.get('moims', `/items/object/${this.props.moim_id}`);
 
-    console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
+    // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
     if (res && res.moim_id) {
       this.setState({
@@ -309,13 +309,13 @@ class App extends Component {
                 </div>
               </div>
               <div className='lb-row'>
-                <div>SignIn Msg</div>
+                <div>인증화면 문구</div>
                 <div>
                   <textarea name='msg_signin' value={this.state.msg_signin} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='9000'></textarea>
                 </div>
               </div>
               <div className='lb-row'>
-                <div>Card Msg</div>
+                <div>카드화면 문구</div>
                 <div>
                   <textarea name='msg_card' value={this.state.msg_card} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='9000'></textarea>
                 </div>
@@ -323,13 +323,13 @@ class App extends Component {
               <div className='lb-row'>
                 <div>시작일</div>
                 <div>
-                  <input type='text' name='date_start' value={this.state.date_start} onChange={this.handleChange} className={this.state.date_start_class} placeholder='0000-00-00' autoComplete='off' maxLength='10' />
+                  <input type='text' name='date_start' value={this.state.date_start} onChange={this.handleChange} className={this.state.date_start_class} placeholder='2000-00-00' autoComplete='off' maxLength='10' />
                 </div>
               </div>
               <div className='lb-row'>
                 <div>종료일</div>
                 <div>
-                  <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='0000-00-00' autoComplete='off' maxLength='10' />
+                  <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='2000-00-00' autoComplete='off' maxLength='10' />
                 </div>
               </div>
               <div className='lb-row'>

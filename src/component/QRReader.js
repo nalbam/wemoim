@@ -25,6 +25,7 @@ class App extends Component {
     name: '',
     email: '',
     phone: '',
+    requests: '',
   }
 
   componentDidMount() {
@@ -107,19 +108,24 @@ class App extends Component {
   };
 
   render() {
+    let name = '';
     let attendance = '';
     let received = '';
 
-    if (this.state.attendance) {
-      attendance = <img src='/images/done.png' alt='done' className='icon-check' />
-    } else {
-      attendance = <img src='/images/none.png' alt='none' className='icon-check' />
-    }
+    if (this.state.name !== '') {
+      name = `${this.state.name} (${this.state.requests})`;
 
-    if (this.state.received) {
-      received = <img src='/images/done.png' alt='done' className='icon-check' />
-    } else {
-      received = <img src='/images/none.png' alt='none' className='icon-check' />
+      if (this.state.attendance) {
+        attendance = <img src='/images/done.png' alt='done' className='icon-check' />
+      } else {
+        attendance = <img src='/images/none.png' alt='none' className='icon-check' />
+      }
+
+      if (this.state.received) {
+        received = <img src='/images/done.png' alt='done' className='icon-check' />
+      } else {
+        received = <img src='/images/none.png' alt='none' className='icon-check' />
+      }
     }
 
     return (
@@ -146,7 +152,7 @@ class App extends Component {
         </div>
 
         <div className='name'>
-          {this.state.name} ({this.state.requests})
+          <p>{name}</p>
         </div>
 
         <div className='track'>

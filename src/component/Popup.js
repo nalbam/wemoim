@@ -39,15 +39,13 @@ class App extends Component {
   }
 
   render() {
-    let messageClass = `pop-message pop-rank${this.state.popInfo.rank}`;
-
     return (
       <Fragment>
         <div className='pop-layer'>
           <div className='pop-bg'></div>
           <div className='pop-container'>
             <div className='pop-header'>{this.state.popInfo.header}</div>
-            <div className={messageClass}>{this.state.popInfo.message}</div>
+            <div className='pop-message'>{this.state.popInfo.message}</div>
             <div className='pop-footer'>{this.state.popInfo.footer}</div>
           </div>
         </div>

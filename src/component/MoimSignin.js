@@ -140,7 +140,6 @@ class App extends Component {
   normalizePhone(v) {
     if (!v) return v;
     let cv = v.replace(/[^\d]/g, '');
-
     if (cv.length + 1 === v.length && v[v.length - 1] === '-') return v;
     if (cv.length < 4) return cv;
     if (cv.length + 2 === v.length && v[v.length - 1] === '-') return v;
