@@ -32,6 +32,20 @@ class App extends Component {
     date_start_class: 'text_normal',
     date_end: '',
     date_end_class: 'text_normal',
+    days: [],
+  }
+
+  day_default = {
+    name: '',
+    date: '',
+    tracks: [],
+  }
+
+  track_default = {
+    name: '',
+    time_start: '',
+    time_end: '',
+    location: '',
   }
 
   logos = [
@@ -49,8 +63,32 @@ class App extends Component {
     this.getMoim();
   }
 
+  newDay = () => {
+    let days = this.state.days;
+    let day = Object.assign({}, this.day_default);
+    day.name = `Day ${(days.length + 1)}`;
+    days.push(day);
+    this.setState({
+      days: days,
+    });
+  }
+
+  newTrack = (pos) => {
+    let days = this.state.days;
+    let track = Object.assign({}, this.track_default);
+    track.name = `Track ${pos + 1} ${days[pos].tracks.length + 1}`;
+    track.location = `Location ${pos + 1} ${days[pos].tracks.length + 1}`;
+    days[pos].tracks.push(track);
+    this.setState({
+      days: days,
+    });
+  }
+
   getMoim = async () => {
     if (!this.props.moim_id || this.props.moim_id === 'undefined') {
+      // this.newDay();
+      // this.newTrack(0);
+      // this.newTrack(0);
       return;
     }
 
@@ -61,6 +99,8 @@ class App extends Component {
     // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
     if (res && res.moim_id) {
+      let days = JSON.parse(res.days === undefined ? '[]' : res.days);
+
       this.setState({
         moim_id_ro: true,
         moim_id: res.moim_id,
@@ -72,6 +112,7 @@ class App extends Component {
         msg_card: res.msg_card,
         date_start: res.date_start,
         date_end: res.date_end,
+        days: days,
       });
 
       this.validateAll();
@@ -90,6 +131,7 @@ class App extends Component {
         msg_card: this.state.msg_card,
         date_start: this.state.date_start,
         date_end: this.state.date_end,
+        days: JSON.stringify(this.state.days),
       };
 
       console.log(`postMoim: ${JSON.stringify(body, null, 2)}`);
@@ -221,6 +263,8 @@ class App extends Component {
     let k = e.target.name;
     let v = e.target.value;
 
+    // console.log(`handleChange: ${k} ${v}`);
+
     switch (k) {
       case 'moim_id':
         v = v.replace(/[^a-z0-9-_]/g, '');
@@ -234,11 +278,42 @@ class App extends Component {
       default:
     }
 
-    this.setState({
-      [k]: v,
-    });
+    let days;
 
-    this.validate(k, v);
+    if (k.startsWith('day-')) {
+      let pos = k.split('-')[1];
+      days = this.state.days;
+      days[pos].name = v;
+    }
+    else if (k.startsWith('date-')) {
+      let pos = k.split('-')[1];
+      days = this.state.days;
+      days[pos].date = v;
+    }
+    else if (k.startsWith('track-')) {
+      let pos = k.split('-')[1];
+      let subpos = k.split('-')[2];
+      days = this.state.days;
+      days[pos].tracks[subpos].name = v;
+    }
+    else if (k.startsWith('location-')) {
+      let pos = k.split('-')[1];
+      let subpos = k.split('-')[2];
+      days = this.state.days;
+      days[pos].tracks[subpos].location = v;
+    }
+
+    if (days !== undefined) {
+      this.setState({
+        days: days,
+      });
+    } else {
+      this.setState({
+        [k]: v,
+      });
+
+      this.validate(k, v);
+    }
   }
 
   handleLogo = (e) => {
@@ -264,8 +339,31 @@ class App extends Component {
   }
 
   render() {
-    const logoList = this.logos.map(
+    const logos = this.logos.map(
       (item, index) => (<img key={index} src={item} onClick={this.handleLogo} alt='logo' className='icon-logo' />)
+    );
+
+    const days = this.state.days.map(
+      (day, index) => (
+        <div key={index} className='lb-row'>
+          <div>
+            <input type='text' name={'day-' + index} value={day.name} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='128' />
+          </div>
+          <div>
+            <input type='text' name={'date-' + index} value={day.date} onChange={this.handleChange} className='text_normal' placeholder='2000-00-00' autoComplete='off' maxLength='128' />
+            {
+              day.tracks.map(
+                (track, subindex) => (
+                  <div key={subindex} className='lb-row'>
+                    <div><input type='text' name={'track-' + index + '-' + subindex} value={track.name} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='128' /></div>
+                    <div><input type='text' name={'location-' + index + '-' + subindex} value={track.location} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='128' /></div>
+                  </div>
+                )
+              )
+            }
+          </div>
+        </div>
+      )
     );
 
     return (
@@ -287,7 +385,7 @@ class App extends Component {
                 <div>로고</div>
                 <div>
                   <input type='text' name='logo' value={this.state.logo} onChange={this.handleChange} className={this.state.logo_class} placeholder='Logo uri, including http:// or https://' autoComplete='off' maxLength='256' />
-                  {logoList}
+                  {logos}
                 </div>
               </div>
               <div className='lb-row'>
@@ -332,6 +430,11 @@ class App extends Component {
                   <input type='text' name='date_end' value={this.state.date_end} onChange={this.handleChange} className={this.state.date_end_class} placeholder='2000-00-00' autoComplete='off' maxLength='10' />
                 </div>
               </div>
+              {days}
+              {/* <div className='lb-row'>
+                <div></div>
+                <div><button type='button' className='btn-submit' onClick={this.newDay}>New Day</button></div>
+              </div> */}
               <div className='lb-row'>
                 <div></div>
                 <div><button type='submit' className='btn-submit'>Save</button></div>
