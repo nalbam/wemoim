@@ -1,0 +1,26 @@
+{
+  "name": "wemoim-bulk",
+  "version": "v0.1.1",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.1481.0",
+    "csv-parse": "^5.5.2",
+    "fs": "^0.0.1-security",
+    "uuid": "^9.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
