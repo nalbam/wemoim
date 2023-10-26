@@ -26,6 +26,7 @@ class App extends Component {
     email_class: 'text_normal',
     phone: '',
     phone_class: 'text_normal',
+    company: '',
     answers: '',
     requests: '',
     track: '',
@@ -53,6 +54,7 @@ class App extends Component {
       name: '',
       email: '',
       phone: '',
+      company: '',
       answers: '',
       requests: '',
       track: '',
@@ -88,6 +90,7 @@ class App extends Component {
       name: res[0].name,
       email: res[0].email,
       phone: res[0].phone,
+      company: res[0].company,
       answers: res[0].answers,
       requests: res[0].requests,
       track: res[0].track,
@@ -128,6 +131,7 @@ class App extends Component {
         name: this.state.name,
         email: this.state.email,
         phone: this.state.phone,
+        company: this.state.company,
         answers: this.state.answers,
         requests: this.state.requests,
         track: this.state.track,
@@ -282,6 +286,12 @@ class App extends Component {
                 <div>휴대폰</div>
                 <div>
                   <input type='text' name='phone' value={this.state.phone} onChange={this.handleChange} className={this.state.phone_class} placeholder='010-0000-0000' autoComplete='off' maxLength='13' />
+                </div>
+              </div>
+              <div className='lb-row'>
+                <div>소속</div>
+                <div>
+                  <input type='text' name='company' value={this.state.company} onChange={this.handleChange} className='text_normal' placeholder='' autoComplete='off' maxLength='256' />
                 </div>
               </div>
               <div className='lb-row'>
