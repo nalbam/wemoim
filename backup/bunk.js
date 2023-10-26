@@ -78,7 +78,7 @@ const parser = parse({
             moim_id: MOIM_ID,
             attendee_id: uuidv4(),
             name: item.name,
-            email: item.email,
+            email: item.email.toLowerCase(),
             phone: normalizePhone(item.phone),
             company: item.company,
             answers: '',

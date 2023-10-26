@@ -129,7 +129,7 @@ class App extends Component {
         moim_id: this.state.moim_id,
         attendee_id: attendee_id,
         name: this.state.name,
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         phone: this.state.phone,
         company: this.state.company,
         answers: this.state.answers,
