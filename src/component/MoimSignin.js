@@ -55,7 +55,7 @@ class App extends Component {
     try {
       let body = {
         moim_id: this.props.moim_id,
-        email: this.state.email,
+        email: this.state.email.toLocaleLowerCase(),
       };
 
       console.log(`signIn: ${JSON.stringify(body, null, 2)}`);
