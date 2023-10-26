@@ -55,8 +55,8 @@ class App extends Component {
     let received = items.filter(item => item.received === true).length;
 
     this.setState({
-      items: items ,
-      status: `신청: ${items.length} / 출석: ${attendance} / 수령: ${received}`
+      items: items,
+      status: `신청: ${items.length} / 참석: ${attendance} / 수령: ${received}`
     });
   }
 

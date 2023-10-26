@@ -102,13 +102,13 @@ class App extends Component {
     this.setState(body);
 
     if (scaned && !attendance) {
-      // 자동 출석
+      // 자동 참석
       const res = await API.post('attendees', '/items', {
         body: body
       });
 
       if (res) {
-        this.popupCmp.current.start('출석!');
+        this.popupCmp.current.start('참석!');
       }
     }
   };
