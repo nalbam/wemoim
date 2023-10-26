@@ -180,10 +180,16 @@ footer {
   width: 20%;
 }
 
-.lb-left .lb-header>div:nth-child(n+3),
-.lb-left .lb-row>div:nth-child(n+3) {
+.lb-left .lb-header>div:nth-child(3),
+.lb-left .lb-row>div:nth-child(3) {
   text-align: left;
-  width: 35%;
+  width: 40%;
+}
+
+.lb-left .lb-header>div:nth-child(n+4),
+.lb-left .lb-row>div:nth-child(n+4) {
+  text-align: left;
+  width: 30%;
 }
 
 .lb-right {
