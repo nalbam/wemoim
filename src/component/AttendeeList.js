@@ -8,6 +8,7 @@ class App extends Component {
   state = {
     logo: '/images/blank.png',
     title: '',
+    status: '',
     items: [],
   }
 
@@ -50,7 +51,13 @@ class App extends Component {
   reloaded(res) {
     let items = res.sort(this.compare);
 
-    this.setState({ items: items });
+    let attendance = items.filter(item => item.attendance === true).length;
+    let received = items.filter(item => item.received === true).length;
+
+    this.setState({
+      items: items ,
+      status: `신청: ${items.length} / 출석: ${attendance} / 수령: ${received}`
+    });
   }
 
   compare(a, b) {
@@ -77,6 +84,8 @@ class App extends Component {
           <div className='logo'>
             <img id='logo' src={this.state.logo} alt='logo' />
           </div>
+
+          <div className='status' id='status'>{this.state.status}</div>
 
           <div className='lb-header'>
             <div></div>
