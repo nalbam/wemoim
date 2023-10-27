@@ -72,7 +72,7 @@ class App extends Component {
 
     // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.attendee_id) {
+    if (!res || res.attendee_id === 'undefined') {
       this.popupCmp.current.start('일치하는 정보가 없습니다.');
       return;
     }

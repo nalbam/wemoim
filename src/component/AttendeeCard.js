@@ -36,17 +36,17 @@ class App extends Component {
 
     // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.length > 0) {
+    if (res && res.attendee_id) {
       this.setState({
-        moim_id: res[0].moim_id,
-        name: res[0].name,
-        email: res[0].email,
-        phone: res[0].phone,
-        answers: res[0].answers,
-        requests: res[0].requests,
-        track: res[0].track,
-        location: res[0].location,
-        attendance: res[0].attendance,
+        moim_id: res.moim_id,
+        name: res.name,
+        email: res.email,
+        phone: res.phone,
+        answers: res.answers,
+        requests: res.requests,
+        track: res.track,
+        location: res.location,
+        attendance: res.attendance,
       });
     }
 
