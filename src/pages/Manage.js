@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react'
+import { withAuthenticator, Authenticator, Auth } from '@aws-amplify/ui-react'
 
 import MoimList from '../component/MoimList';
 
@@ -33,4 +33,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App, {   });
+export default withAuthenticator(App, { hideSignUp: true });
