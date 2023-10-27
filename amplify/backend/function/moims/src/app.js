@@ -39,7 +39,7 @@ app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
 // Enable CORS for all methods
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "*")
   next()
@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 
 // convert url string param to expected Type
 const convertUrlType = (param, type) => {
-  switch(type) {
+  switch (type) {
     case "N":
       return Number.parseInt(param);
     default:
@@ -59,7 +59,7 @@ const convertUrlType = (param, type) => {
 * HTTP Get method to list objects *
 ************************************/
 
-app.get(path, async function(req, res) {
+app.get(path, async function (req, res) {
   var params = {
     TableName: tableName,
     Select: 'ALL_ATTRIBUTES',
@@ -70,16 +70,16 @@ app.get(path, async function(req, res) {
     res.json(data.Items);
   } catch (err) {
     res.statusCode = 500;
-    res.json({error: 'Could not load items: ' + err.message});
+    res.json({ error: 'Could not load items: ' + err.message });
   }
 });
 
 /************************************
- * HTTP Get method to query objects *
- ************************************/
+* HTTP Get method to scan objects *
+************************************/
 
-app.get(path + '/my', async function(req, res) {
-  let userId = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+app.get(path + '/my', async function (req, res) {
+  let userId = req.apiGateway.event.requestContext.identity.cognitoIdentityId;
 
   let queryParams = {
     TableName: tableName,
@@ -99,24 +99,28 @@ app.get(path + '/my', async function(req, res) {
     res.json(data.Items);
   } catch (err) {
     res.statusCode = 500;
-    res.json({error: 'Could not load items: ' + err.message});
+    res.json({ error: 'Could not load items: ' + err.message });
   }
 });
 
-app.get(path + hashKeyPath, async function(req, res) {
+/************************************
+ * HTTP Get method to query objects *
+ ************************************/
+
+app.get(path + hashKeyPath, async function (req, res) {
   const condition = {}
   condition[partitionKeyName] = {
     ComparisonOperator: 'EQ'
   }
 
   if (userIdPresent && req.apiGateway) {
-    condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH ];
+    condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH];
   } else {
     try {
-      condition[partitionKeyName]['AttributeValueList'] = [ convertUrlType(req.params[partitionKeyName], partitionKeyType) ];
-    } catch(err) {
+      condition[partitionKeyName]['AttributeValueList'] = [convertUrlType(req.params[partitionKeyName], partitionKeyType)];
+    } catch (err) {
       res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
+      res.json({ error: 'Wrong column type ' + err });
     }
   }
 
@@ -130,7 +134,7 @@ app.get(path + hashKeyPath, async function(req, res) {
     res.json(data.Items);
   } catch (err) {
     res.statusCode = 500;
-    res.json({error: 'Could not load items: ' + err.message});
+    res.json({ error: 'Could not load items: ' + err.message });
   }
 });
 
@@ -138,7 +142,9 @@ app.get(path + hashKeyPath, async function(req, res) {
  * HTTP Get method for get single object *
  *****************************************/
 
-app.get(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
+app.get(path + '/my' + hashKeyPath + sortKeyPath, async function (req, res) {
+  let userId = req.apiGateway.event.requestContext.identity.cognitoIdentityId;
+
   const params = {};
   if (userIdPresent && req.apiGateway) {
     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
@@ -146,17 +152,62 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
     params[partitionKeyName] = req.params[partitionKeyName];
     try {
       params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
-    } catch(err) {
+    } catch (err) {
       res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
+      res.json({ error: 'Wrong column type ' + err });
     }
   }
   if (hasSortKey) {
     try {
       params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
-    } catch(err) {
+    } catch (err) {
       res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
+      res.json({ error: 'Wrong column type ' + err });
+    }
+  }
+
+  let getItemParams = {
+    TableName: tableName,
+    Key: params
+  }
+
+  try {
+    const data = await ddbDocClient.send(new GetCommand(getItemParams));
+    if (data.Item) {
+      if (data.Item.userId !== userId) {
+        res.statusCode = 403;
+        res.json({ error: 'Forbidden' });
+      } else {
+        res.json(data.Item);
+      }
+    } else {
+      res.json(data);
+    }
+  } catch (err) {
+    res.statusCode = 500;
+    res.json({ error: 'Could not load items: ' + err.message });
+  }
+});
+
+app.get(path + '/object' + hashKeyPath + sortKeyPath, async function (req, res) {
+  const params = {};
+  if (userIdPresent && req.apiGateway) {
+    params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+  } else {
+    params[partitionKeyName] = req.params[partitionKeyName];
+    try {
+      params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
+    } catch (err) {
+      res.statusCode = 500;
+      res.json({ error: 'Wrong column type ' + err });
+    }
+  }
+  if (hasSortKey) {
+    try {
+      params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
+    } catch (err) {
+      res.statusCode = 500;
+      res.json({ error: 'Wrong column type ' + err });
     }
   }
 
@@ -170,20 +221,19 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
     if (data.Item) {
       res.json(data.Item);
     } else {
-      res.json(data) ;
+      res.json(data);
     }
   } catch (err) {
     res.statusCode = 500;
-    res.json({error: 'Could not load items: ' + err.message});
+    res.json({ error: 'Could not load items: ' + err.message });
   }
 });
-
 
 /************************************
 * HTTP put method for insert object *
 *************************************/
 
-app.put(path, async function(req, res) {
+app.put(path, async function (req, res) {
 
   if (userIdPresent) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
@@ -206,7 +256,7 @@ app.put(path, async function(req, res) {
 * HTTP post method for insert object *
 *************************************/
 
-app.post(path, async function(req, res) {
+app.post(path, async function (req, res) {
 
   req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
 
@@ -227,25 +277,25 @@ app.post(path, async function(req, res) {
 * HTTP remove method to delete object *
 ***************************************/
 
-app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
+app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function (req, res) {
   const params = {};
   if (userIdPresent && req.apiGateway) {
     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   } else {
     params[partitionKeyName] = req.params[partitionKeyName];
-     try {
+    try {
       params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
-    } catch(err) {
+    } catch (err) {
       res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
+      res.json({ error: 'Wrong column type ' + err });
     }
   }
   if (hasSortKey) {
     try {
       params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
-    } catch(err) {
+    } catch (err) {
       res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
+      res.json({ error: 'Wrong column type ' + err });
     }
   }
 
@@ -256,14 +306,14 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res
 
   try {
     let data = await ddbDocClient.send(new DeleteCommand(removeItemParams));
-    res.json({url: req.url, data: data});
+    res.json({ url: req.url, data: data });
   } catch (err) {
     res.statusCode = 500;
-    res.json({error: err, url: req.url});
+    res.json({ error: err, url: req.url });
   }
 });
 
-app.listen(3000, function() {
+app.listen(3000, function () {
   console.log("App started")
 });
 

@@ -72,31 +72,31 @@ class App extends Component {
 
     // console.log(`getAttendee: ${JSON.stringify(res, null, 2)}`);
 
-    if (!res || res.length === 0) {
+    if (res && res.attendee_id) {
       this.popupCmp.current.start('일치하는 정보가 없습니다.');
       return;
     }
 
-    if (res[0].moim_id !== this.props.moim_id) {
+    if (res.moim_id !== this.props.moim_id) {
       this.popupCmp.current.start('모임이 일치하지 않습니다.');
       return;
     }
 
-    let attendance = res[0].attendance;
+    let attendance = res.attendance;
 
     let body = {
-      moim_id: res[0].moim_id,
-      attendee_id: res[0].attendee_id,
-      name: res[0].name,
-      email: res[0].email,
-      phone: res[0].phone,
-      company: res[0].company,
-      answers: res[0].answers,
-      requests: res[0].requests,
-      track: res[0].track,
-      location: res[0].location,
+      moim_id: res.moim_id,
+      attendee_id: res.attendee_id,
+      name: res.name,
+      email: res.email,
+      phone: res.phone,
+      company: res.company,
+      answers: res.answers,
+      requests: res.requests,
+      track: res.track,
+      location: res.location,
       attendance: scaned || attendance,
-      received: res[0].received,
+      received: res.received,
     }
 
     this.setState(body);
