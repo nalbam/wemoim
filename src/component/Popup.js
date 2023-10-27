@@ -5,7 +5,6 @@ import $ from 'jquery';
 class App extends Component {
   state = {
     popInfo: {
-      rank: '',
       header: '',
       message: '',
       footer: '',
@@ -27,7 +26,6 @@ class App extends Component {
     if (message) {
       this.setState({
         popInfo: {
-          rank: this.state.rank,
           header: this.state.header,
           message: message,
           footer: this.state.footer,

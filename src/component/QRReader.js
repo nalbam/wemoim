@@ -86,7 +86,7 @@ class App extends Component {
       email: res.email,
       phone: res.phone,
       company: res.company,
-      answers: res.answers,
+      // answers: res.answers,
       requests: res.requests,
       track: res.track,
       location: res.location,
