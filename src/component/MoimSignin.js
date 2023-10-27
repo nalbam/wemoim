@@ -152,6 +152,9 @@ class App extends Component {
     let v = e.target.value;
 
     switch (k) {
+      case 'email':
+        v = v.toLowerCase();
+        break;
       case 'phone':
         v = this.normalizePhone(v);
         break;

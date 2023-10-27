@@ -125,7 +125,7 @@ class App extends Component {
         moim_id: this.props.moim_id,
         attendee_id: attendee_id,
         name: this.state.name,
-        email: this.state.email.toLowerCase(),
+        email: this.state.email,
         phone: this.state.phone,
         company: this.state.company,
         answers: this.state.answers,
@@ -240,8 +240,14 @@ class App extends Component {
     let v = e.target.value;
 
     switch (k) {
+      case 'email':
+        v = v.toLowerCase();
+        break;
       case 'phone':
         v = this.normalizePhone(v);
+        break;
+      case 'requests':
+        v = v.toUpperCase();
         break;
       default:
     }
