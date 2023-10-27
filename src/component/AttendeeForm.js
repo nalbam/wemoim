@@ -44,7 +44,7 @@ class App extends Component {
     this.getAttendee(attendee_id, scaned);
 
     $('html, body').stop().animate({
-      scrollTop: 0
+      scrollTop: 200
     }, 500);
   }
 

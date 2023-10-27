@@ -33,4 +33,4 @@ class App extends Component {
   }
 }
 
-export default withAuthenticator(App, { hideSignUp: true });
+export default withAuthenticator(App, {   });

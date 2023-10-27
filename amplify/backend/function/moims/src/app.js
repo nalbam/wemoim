@@ -78,6 +78,31 @@ app.get(path, async function(req, res) {
  * HTTP Get method to query objects *
  ************************************/
 
+app.get(path + '/my', async function(req, res) {
+  let userId = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+
+  let queryParams = {
+    TableName: tableName,
+    FilterExpression: '#userId = :userId',
+    ExpressionAttributeNames: {
+      '#userId': 'userId',
+    },
+    ExpressionAttributeValues: {
+      ':userId': userId
+    },
+  }
+
+  console.log('get: ' + path + '/my' + ' : ' + JSON.stringify(queryParams, null, 2));
+
+  try {
+    const data = await ddbDocClient.send(new ScanCommand(queryParams));
+    res.json(data.Items);
+  } catch (err) {
+    res.statusCode = 500;
+    res.json({error: 'Could not load items: ' + err.message});
+  }
+});
+
 app.get(path + hashKeyPath, async function(req, res) {
   const condition = {}
   condition[partitionKeyName] = {
@@ -183,9 +208,7 @@ app.put(path, async function(req, res) {
 
 app.post(path, async function(req, res) {
 
-  if (userIdPresent) {
-    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
+  req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
 
   let putItemParams = {
     TableName: tableName,

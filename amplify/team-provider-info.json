@@ -19,11 +19,11 @@
       "function": {
         "moims": {
           "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
-          "s3Key": "amplify-builds/moims-445037717353576a6743-build.zip"
+          "s3Key": "amplify-builds/moims-46657559397075416d5a-build.zip"
         },
         "attendees": {
           "deploymentBucketName": "amplify-wemoim-dev-184927-deployment",
-          "s3Key": "amplify-builds/attendees-7a4638346b66776f544d-build.zip"
+          "s3Key": "amplify-builds/attendees-6c6c6e4e516275456b4c-build.zip"
         }
       },
       "api": {

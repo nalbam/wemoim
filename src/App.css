@@ -76,6 +76,13 @@ footer {
   text-align: center;
 }
 
+.info {
+  font-size: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .lb-items {
   font-size: 150%;
   margin: 0 auto;
@@ -194,6 +201,7 @@ footer {
 
 .lb-right {
   margin-left: 20px;
+  margin-top: 200px;
   position: block;
   width: 600px;
 }

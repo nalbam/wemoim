@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   getMoims = async () => {
-    const res = await API.get('moims', '/items');
+    const res = await API.get('moims', '/items/my');
     if (res && res.length > 0) {
       this.reloaded(res);
     }

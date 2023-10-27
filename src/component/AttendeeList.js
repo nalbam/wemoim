@@ -85,7 +85,9 @@ class App extends Component {
             <img id='logo' src={this.state.logo} alt='logo' />
           </div>
 
-          <div className='status' id='status'>{this.state.status}</div>
+          <div className='info'>{this.state.title}</div>
+
+          <div className='info'>{this.state.status}</div>
 
           <div className='lb-header'>
             <div></div>

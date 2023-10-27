@@ -20,6 +20,7 @@ class App extends Component {
     moim_id: '',
     moim_id_class: 'text_normal',
     moim_id_ro: false,
+    userId: '',
     logo: 'https://wemoim.com/images/wemoim.png',
     logo_class: 'text_normal',
     title: '',
@@ -104,6 +105,7 @@ class App extends Component {
       this.setState({
         moim_id_ro: true,
         moim_id: res.moim_id,
+        userId: res.userId,
         logo: res.logo,
         title: res.title,
         desc: res.desc,
