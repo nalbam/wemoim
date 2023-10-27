@@ -118,15 +118,11 @@ class App extends Component {
 
     if (!attendee_id || attendee_id === '') {
       attendee_id = uuidv4();
-
-      this.setState({
-        attendee_id: attendee_id,
-      });
     }
 
     try {
       let body = {
-        moim_id: this.state.moim_id,
+        moim_id: this.props.moim_id,
         attendee_id: attendee_id,
         name: this.state.name,
         email: this.state.email.toLowerCase(),
@@ -144,6 +140,10 @@ class App extends Component {
 
       const res = await API.post('attendees', '/items', {
         body: body
+      });
+
+      this.setState({
+        attendee_id: attendee_id,
       });
 
       console.log('postAttendee: ' + JSON.stringify(res, null, 2));
@@ -225,9 +225,26 @@ class App extends Component {
     return b;
   }
 
+  normalizePhone(v) {
+    if (!v) return v;
+    let cv = v.replace(/[^\d]/g, '');
+    if (cv.length + 1 === v.length && v[v.length - 1] === '-') return v;
+    if (cv.length < 4) return cv;
+    if (cv.length + 2 === v.length && v[v.length - 1] === '-') return v;
+    if (cv.length < 8) return `${cv.slice(0, 3)}-${cv.slice(3)}`;
+    return `${cv.slice(0, 3)}-${cv.slice(3, 7)}-${cv.slice(7, 11)}`;
+  }
+
   handleChange = (e) => {
     let k = e.target.name;
     let v = e.target.value;
+
+    switch (k) {
+      case 'phone':
+        v = this.normalizePhone(v);
+        break;
+      default:
+    }
 
     this.setState({
       [k]: v,
