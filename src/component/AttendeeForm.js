@@ -280,6 +280,7 @@ class App extends Component {
   }
 
   render() {
+    let kiosk = '/manage/kiosk/' + this.props.moim_id;
     let reader = '/manage/reader/' + this.props.moim_id;
 
     return (
@@ -379,6 +380,7 @@ class App extends Component {
           />
 
           <div className='center'>
+            <a href={kiosk} className='btn-link'>QR Kiosk</a>
             <a href={reader} className='btn-link'>QR Reader</a>
           </div>
         </div>

@@ -349,7 +349,7 @@ footer {
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  margin-right: 20px;
+  margin: 10px;
   padding: 5px;
   text-align: center;
   vertical-align: middle;
@@ -362,7 +362,7 @@ footer {
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  margin-right: 20px;
+  margin: 10px;
   padding: 5px;
   text-align: center;
   vertical-align: middle;
@@ -375,7 +375,7 @@ footer {
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  margin-right: 20px;
+  margin: 10px;
   padding: 5px;
   text-align: center;
   vertical-align: middle;
