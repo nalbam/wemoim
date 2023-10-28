@@ -93,13 +93,13 @@ class App extends Component {
       return;
     }
 
-    console.log(`getMoim: ${this.props.moim_id}`);
+    try {
+      console.log(`getMoim: ${this.props.moim_id}`);
 
-    const res = await API.get('moims', `/items/object/${this.props.moim_id}`);
+      const res = await API.get('moims', `/items/my/${this.props.moim_id}`);
 
-    // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
+      // console.log(`getMoim: ${JSON.stringify(res, null, 2)}`);
 
-    if (res && res.moim_id) {
       let days = JSON.parse(res.days === undefined ? '[]' : res.days);
 
       this.setState({
@@ -118,6 +118,10 @@ class App extends Component {
       });
 
       this.validateAll();
+    } catch (err) {
+      console.log(`getMoim: ${JSON.stringify(err.message, null, 2)}`);
+
+      this.props.navigate(`/manage/`);
     }
   };
 

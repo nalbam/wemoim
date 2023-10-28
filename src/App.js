@@ -14,6 +14,10 @@ class App extends Component {
 
         <MoimAll pathPrefix='' />
 
+        <div className='center'>
+          <a href='/manage' className='btn-link'>Manage</a>
+        </div>
+
         <footer className='App-footer'></footer>
       </Fragment>
     );
