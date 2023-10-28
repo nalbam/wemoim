@@ -14,7 +14,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.listCmp = React.createRef();
     this.formCmp = React.createRef();
   }
 
@@ -29,8 +28,8 @@ class App extends Component {
       <Fragment>
         <div className='App-body'>
           <div className='lb-dash'>
-            <AttendeeList ref={this.listCmp} moim_id={moim_id} selectAttendee={this.selectAttendee} />
-            <AttendeeForm ref={this.formCmp} moim_id={moim_id} attendee_id={attendee_id} />
+            <AttendeeList moim_id={moim_id} selectAttendee={this.selectAttendee} />
+            <AttendeeForm moim_id={moim_id} attendee_id={attendee_id} ref={this.formCmp} />
           </div>
         </div>
 
