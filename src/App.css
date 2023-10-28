@@ -141,9 +141,14 @@ footer {
 }
 
 .lb-reader {
-  display: flex;
   text-align: center;
   width: 100%;
+}
+
+.lb-center {
+  max-width: fit-content;
+  position: block;
+  width: 800px;
 }
 
 .lb-left {

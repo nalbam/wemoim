@@ -11,6 +11,7 @@ import Card from './pages/Card'
 import Dashboard from './pages/Dashboard'
 import Manage from './pages/Manage'
 import ManageMoim from './pages/ManageMoim'
+import ManageKiosk from './pages/ManageKiosk'
 import ManageReader from './pages/ManageReader'
 import Moim from './pages/Moim'
 import Signin from './pages/Signin'
@@ -38,6 +39,7 @@ const routing = (
         <Route exact path='/' element={<App />} />
         <Route path='/manage/moim/' element={<ManageMoim />} />
         <Route path='/manage/moim/:moim_id' element={<ManageMoim />} />
+        <Route path='/manage/kiosk/:moim_id' element={<ManageKiosk />} />
         <Route path='/manage/reader/:moim_id' element={<ManageReader />} />
         <Route path='/manage/:moim_id' element={<Dashboard />} />
         <Route path='/manage/' element={<Manage />} />
