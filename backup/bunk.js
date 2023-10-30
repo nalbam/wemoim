@@ -10,14 +10,9 @@ const AWS_CREDENTIALS_PROFILE = 'default';
 const DYNAMODB_REGION = 'ap-northeast-2';
 const DYNAMODB_TABLENAME = 'wemoim-attendees-dev';
 
-const MOIM_ID = 'demo';
+const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
 
-const CSV_FILENAME = `${MOIM_ID}.csv`;
-
-const DEFAULT_track = '트랙 1 DEMO';
-const DEFAULT_location = '강남구 테헤란로 데모빌딩 11층';
-const DEFAULT_attendance = false;
-const DEFAULT_received = false;
+const CSV_FILENAME = "cday-2023-xxx.csv";
 
 // --- end user config ---
 
@@ -31,32 +26,21 @@ const docClient = new AWS.DynamoDB.DocumentClient({
   region: DYNAMODB_REGION
 });
 
-
-function normalizePhone(v) {
-  if (!v) return v;
-  let cv = v.replace(/[^\d]/g, '');
-  if (cv.length + 1 === v.length && v[v.length - 1] === '-') return v;
-  if (cv.length < 4) return cv;
-  if (cv.length + 2 === v.length && v[v.length - 1] === '-') return v;
-  if (cv.length < 8) return `${cv.slice(0, 3)}-${cv.slice(3)}`;
-  return `${cv.slice(0, 3)}-${cv.slice(3, 7)}-${cv.slice(7, 11)}`;
-}
-
-const rs = fs.createReadStream(CSV_FILENAME);
 const parser = parse({
   columns: true,
   delimiter: ','
 }, function (err, data) {
 
-  var split_arrays = [],
-    size = 25;
+  let split_arrays = [];
 
   while (data.length > 0) {
-    split_arrays.push(data.splice(0, size));
+    split_arrays.push(data.splice(0, 25));
   }
 
-  data_imported = false;
-  chunk_no = 1;
+  console.log(split_arrays.length);
+
+  let data_imported = false;
+  let chunk_no = 1;
 
   async.each(split_arrays, function (item_data, callback) {
     const params = {
@@ -75,7 +59,7 @@ const parser = parse({
       params.RequestItems[DYNAMODB_TABLENAME].push({
         PutRequest: {
           Item: {
-            moim_id: MOIM_ID,
+            moim_id: config[CSV_FILENAME]["moim_id"],
             attendee_id: uuidv4(),
             name: item.name,
             email: item.email.toLowerCase(),
@@ -83,10 +67,10 @@ const parser = parse({
             company: item.company,
             answers: '',
             requests: item.requests.toUpperCase(),
-            track: DEFAULT_track,
-            location: DEFAULT_location,
-            attendance: DEFAULT_attendance,
-            received: DEFAULT_received,
+            track: config[CSV_FILENAME]["track"],
+            location: config[CSV_FILENAME]["location"],
+            attendance: config[CSV_FILENAME]["attendance"],
+            received: config[CSV_FILENAME]["received"],
           }
         }
       });
@@ -111,9 +95,28 @@ const parser = parse({
   }, function () {
     // run after loops
     console.log('all data imported....');
-
   });
 
 });
 
-rs.pipe(parser);
+function normalizePhone(v) {
+  if (!v) return v;
+  let cv = v.replace(/[^\d]/g, '');
+  if (cv.length + 1 === v.length && v[v.length - 1] === '-') return v;
+  if (cv.length < 4) return cv;
+  if (cv.length + 2 === v.length && v[v.length - 1] === '-') return v;
+  if (cv.length < 8) return `${cv.slice(0, 3)}-${cv.slice(3)}`;
+  return `${cv.slice(0, 3)}-${cv.slice(3, 7)}-${cv.slice(7, 11)}`;
+}
+
+function main() {
+  if (!fs.existsSync(CSV_FILENAME)) {
+    console.log(`File ${CSV_FILENAME} does not exist`);
+    process.exit(1);
+  }
+
+  const rs = fs.createReadStream(CSV_FILENAME);
+  rs.pipe(parser);
+}
+
+main();

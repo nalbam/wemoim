@@ -1,0 +1,51 @@
+{
+  "cday-2023-track1.csv": {
+    "moim_id": "cday-2023-track1",
+    "track": "10월 28일(토) 트랙 1 아키텍처/데브옵스",
+    "location": "강남구 테헤란로 231 센터필드 EAST 18층",
+    "attendance": false,
+    "received": false
+  },
+  "cday-2023-track2.csv": {
+    "moim_id": "cday-2023-track2",
+    "track": "10월 28일(토) 트랙 2 서버리스",
+    "location": "강남구 테헤란로 131 한국지식재산센터 15층",
+    "attendance": false,
+    "received": false
+  },
+  "cday-2023-track3.csv": {
+    "moim_id": "cday-2023-track3",
+    "track": "10월 28일(토) 트랙 3 분석/인공지능",
+    "location": "강남구 테헤란로 133 한국타이어빌딩 7층",
+    "attendance": false,
+    "received": false
+  },
+  "cday-2023-handson1.csv": {
+    "moim_id": "cday-2023-handson",
+    "track": "11월 4일(토) 트랙 1 데브옵스",
+    "location": "강남구 테헤란로 231 센터필드 EAST 18층",
+    "attendance": false,
+    "received": false
+  },
+  "cday-2023-handson2.csv": {
+    "moim_id": "cday-2023-handson",
+    "track": "11월 4일(토) 트랙 2 컨테이너",
+    "location": "강남구 테헤란로 231 센터필드 EAST 18층",
+    "attendance": false,
+    "received": false
+  },
+  "cday-2023-handson3.csv": {
+    "moim_id": "cday-2023-handson",
+    "track": "11월 4일(토) 트랙 3 서버리스",
+    "location": "강남구 테헤란로 231 센터필드 EAST 18층",
+    "attendance": false,
+    "received": false
+  },
+  "cday-2023-handson4.csv": {
+    "moim_id": "cday-2023-handson",
+    "track": "11월 4일(토) 트랙 4 딥레이서",
+    "location": "강남구 테헤란로 231 센터필드 EAST 18층",
+    "attendance": false,
+    "received": false
+  }
+}
