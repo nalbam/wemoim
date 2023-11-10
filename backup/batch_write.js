@@ -69,8 +69,8 @@ const parser = parse({
             requests: item.requests.toUpperCase(),
             track: config[CSV_FILENAME]["track"],
             location: config[CSV_FILENAME]["location"],
-            attendance: config[CSV_FILENAME]["attendance"],
-            received: config[CSV_FILENAME]["received"],
+            attendance: false,
+            received: false,
           }
         }
       });
